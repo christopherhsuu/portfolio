@@ -3,80 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Christopher Hsu | Sabermetrics Portfolio</title>
+  <title>Christopher Hsu | Sabermetrics Projects</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- Header -->
   <header>
-    <h1>Christopher Hsu | Sabermetrics Portfolio</h1>
+    <h1>Christopher Hsu</h1>
+    <p class="tagline">Data Science &amp; Sabermetrics Research</p>
     <nav>
       <ul>
-        <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- About Section -->
+  <!-- Hero Banner -->
+  <section id="hero">
+    <div class="hero-content">
+      <h2>Analyzing Baseball Through Data</h2>
+      <p>Exploring swing mechanics, predictive modeling, and player performance through advanced statistics.</p>
+    </div>
+  </section>
+
+  <!-- Projects Grid -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="project-grid">
+
+      <!-- Project 1 -->
+      <div class="project-card">
+        <img src="assets/swing-analysis-thumb.jpg" alt="Swing Analysis thumbnail">
+        <div class="project-info">
+          <h3>Swing Analysis</h3>
+          <p>Explores how swing angle consistency affects expected wOBA using Statcast tracking data.</p>
+          <div class="buttons">
+            <a href="https://github.com/christopherhsuu/swing-analysis" target="_blank" class="btn">View Code</a>
+            <a href="https://nbviewer.org/github/christopherhsuu/swing-analysis/blob/main/swing_analysis.ipynb" target="_blank" class="btn">View Notebook</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card">
+        <img src="assets/statforecast-thumb.jpg" alt="StatForecast thumbnail">
+        <div class="project-info">
+          <h3>StatForecast</h3>
+          <p>Interactive Streamlit app predicting player performance using sabermetric models and machine learning.</p>
+          <div class="buttons">
+            <a href="https://statforecast.streamlit.app" target="_blank" class="btn">Launch App</a>
+            <a href="https://github.com/christopherhsuu/statforecast" target="_blank" class="btn">View Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <img src="assets/count-strategy-thumb.jpg" alt="Count Strategy thumbnail">
+        <div class="project-info">
+          <h3>Count-Based Strategy</h3>
+          <p>Analyzes whether hitters who change approach in two-strike counts outperform those who keep a consistent swing.</p>
+          <div class="buttons">
+            <a href="https://github.com/christopherhsuu/count-strategy" target="_blank" class="btn">View Code</a>
+            <a href="https://nbviewer.org/github/christopherhsuu/count-strategy/blob/main/count_strategy.ipynb" target="_blank" class="btn">View Notebook</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- About -->
   <section id="about">
-    <h2>About Me</h2>
+    <h2>About</h2>
     <p>
-      Hello! I’m Christopher Hsu, a data science student and lifelong baseball fan. 
-      This portfolio showcases my sabermetrics research and projects, where I use 
-      statistical modeling, visualization, and machine learning to explore the 
-      data-driven side of baseball performance and strategy.
+      I’m a data science student passionate about sabermetrics and sports analytics.
+      My work combines statistical modeling, visualization, and machine learning to uncover 
+      new insights into baseball performance and strategy.
     </p>
   </section>
 
-  <!-- Projects Section -->
-  <section id="projects">
-    <h2>Projects</h2>
-
-    <div class="project">
-      <h3>Swing Analysis</h3>
-      <p>
-        An analysis of Statcast bat-tracking data to study how swing angle 
-        consistency impacts expected wOBA and hitting outcomes.
-      </p>
-      <a href="swing-analysis.html" class="btn">View Project</a>
-    </div>
-
-    <div class="project">
-      <h3>StatForecast</h3>
-      <p>
-        An interactive Shiny app that forecasts baseball player performance 
-        using advanced statistics and predictive modeling. Hosted live for exploration.
-      </p>
-        <a href="https://statforecast.streamlit.app" target="_blank" class="btn">Launch App</a>
-    </div>
-
-    <div class="project">
-      <h3>Count-Based Strategy</h3>
-      <p>
-        An investigation into whether hitters who adjust their swing or approach 
-        in two-strike counts achieve better results compared to those who maintain 
-        a consistent swing pattern.
-      </p>
-      <a href="count-strategy.html" class="btn">View Project</a>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
+  <!-- Contact -->
   <section id="contact">
     <h2>Contact</h2>
-    <p>If you’d like to connect, you can reach me at:</p>
+    <p>If you’d like to collaborate or connect:</p>
     <ul>
-      <li><a href="mailto:christopherhsu452@gmail.com">christopherhsu@gmail.com</a></li>
-      <li><a href="https://github.com/christopherhsuu" target="_blank">Github</a></li>
-      <li><a href="https://linkedin.com/in/christopherhsu452" target="_blank">Linkedin</a></li>
+      <li>Email: <a href="mailto:christopherhsu@gmail.com">christopherhsu@gmail.com</a></li>
+      <li>GitHub: <a href="https://github.com/christopherhsuu" target="_blank">github.com/christopherhsuu</a></li>
+      <li>LinkedIn: <a href="https://linkedin.com/in/martin-j-hsu" target="_blank">linkedin.com/in/martin-j-hsu</a></li>
     </ul>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>© 2025 Christopher Hsu. Built with dedication and data.</p>
+    <p>© 2025 Christopher Hsu. Built with data, code, and curiosity.</p>
   </footer>
 </body>
 </html>
