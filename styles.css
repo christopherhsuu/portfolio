@@ -194,3 +194,56 @@ footer {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+
+/* --- Thumbnail Sizing and Project Card Layout --- */
+
+.project-card img {
+  width: 100%;
+  height: 200px;              /* standard thumbnail height */
+  object-fit: cover;          /* crops image neatly to fill box */
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+/* Optional: make project cards consistent grid size */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.project-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+
+.project-info {
+  padding: 15px 20px;
+}
+
+.project-info h3 {
+  margin-bottom: 8px;
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+.buttons .btn {
+  margin-right: 10px;
+}
