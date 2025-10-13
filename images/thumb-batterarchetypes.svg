@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Batter Archetypes thumbnail">
+  <rect width="1200" height="675" rx="12" fill="#071726" />
+  <g fill="#86d1ff" font-family="Inter, Arial, sans-serif">
+    <text x="90" y="160" font-size="44" font-weight="700">Batter Archetypes</text>
+    <text x="90" y="210" font-size="18" fill="#bfe6ff">Cluster hitters and explore archetype profiles</text>
+  </g>
+  <g transform="translate(90,300)" fill="#9be0ff">
+    <circle cx="40" cy="120" r="28" opacity="0.24" />
+    <circle cx="140" cy="80" r="40" opacity="0.28" />
+    <circle cx="260" cy="40" r="60" opacity="0.32" />
+    <circle cx="380" cy="100" r="36" opacity="0.26" />
+  </g>
+</svg>
