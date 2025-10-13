@@ -69,7 +69,7 @@ body {
 /* Projects */
 .project-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 
-.project-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 30px rgba(2,6,23,0.6); display:flex; flex-direction:column; border: 1px solid rgba(255,255,255,0.02); }
+.project-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius: var(--radius); overflow: hidden; box-shadow: 0 6px 18px rgba(2,6,23,0.45); display:flex; flex-direction:column; border: 0.5px solid rgba(255,255,255,0.015); }
 .project-card figure {
   margin: 0;
   display: flex;
@@ -77,8 +77,8 @@ body {
   justify-content: center;
   background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
   min-height: 200px; /* reserve space for thumbnail */
-  padding: 18px; /* inner padding so SVGs don't touch the edges */
-  border-bottom: 1px solid rgba(255,255,255,0.02); /* subtle separator to match cards */
+  padding: 12px; /* inner padding so SVGs don't touch the edges */
+  border-bottom: 0.5px solid rgba(255,255,255,0.015); /* subtle separator to match cards */
   position: relative;
 }
 .project-card img {
@@ -95,13 +95,17 @@ body {
   /* small top strip to match the darker header line present on some thumbnails */
   content: '';
   position: absolute;
-  left: 18px;
-  right: 18px;
-  top: 10px;
-  height: 12px;
-  background: rgba(11,92,255,0.06);
+  left: 12px;
+  right: 12px;
+  top: 12px;
+  height: 8px;
+  background: rgba(11,92,255,0.05);
   border-radius: 6px;
 }
+
+/* header logo */
+.site-logo { width:44px; height:44px; vertical-align:middle; display:inline-block; margin-right:10px; }
+.brand { display:flex; align-items:center; gap:10px; }
 
 .project-info { padding:18px; display:flex; flex-direction:column; gap:10px; }
 .project-info h3 { margin:0; color:var(--text-color); font-size:1.075rem; }
