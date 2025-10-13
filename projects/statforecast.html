@@ -7,9 +7,53 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="/" class="site-title">Christopher Hsu</a>
+        <p class="tagline">Data science &amp; sabermetrics</p>
+      </div>
+      <nav aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/index.html#projects">Projects</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section">
     <h1>StatForecast</h1>
-    <nav><a href="index.html">← Back to Portfolio</a></nav>
+    <p class="muted">A forecasting tool that uses historical sabermetrics and machine learning to estimate future player performance. This page links to the live app and the code repository.</p>
+
+    <div style="margin-top:20px; display:flex; gap:12px;">
+      <a class="btn" href="https://statforecast.streamlit.app" target="_blank" rel="noopener noreferrer">Open Live App</a>
+      <a class="btn ghost" href="https://github.com/christopherhsuu/statforecast" target="_blank" rel="noopener noreferrer">Repository</a>
+    </div>
+
+    <section style="margin-top:28px;">
+      <h2>About the project</h2>
+      <p class="muted">This project includes data ingestion, feature engineering, and several forecasting models (linear models, tree-based, and neural nets). The Streamlit app demonstrates the predictions and lets users explore inputs.</p>
+    </section>
+
+    <section style="margin-top:18px;">
+      <h2>How to run locally</h2>
+      <pre style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px; color:var(--muted-text);">
+# clone
+git clone https://github.com/christopherhsuu/statforecast
+cd statforecast
+# follow the project's README to set up a venv and install dependencies
+      </pre>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="muted">© 2025 Christopher Hsu</p>
+    </div>
+  </footer>
+  </body>
+</html>
   </header>
 
   <section>
