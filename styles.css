@@ -77,6 +77,9 @@ body {
   justify-content: center;
   background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
   min-height: 200px; /* reserve space for thumbnail */
+  padding: 18px; /* inner padding so SVGs don't touch the edges */
+  border-bottom: 1px solid rgba(255,255,255,0.02); /* subtle separator to match cards */
+  position: relative;
 }
 .project-card img {
   display: block;
@@ -86,6 +89,18 @@ body {
   max-height: 200px; /* keeps cards uniform */
   object-fit: contain; /* show whole image */
   margin: 0 auto;
+}
+
+.project-card figure::before {
+  /* small top strip to match the darker header line present on some thumbnails */
+  content: '';
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 10px;
+  height: 12px;
+  background: rgba(11,92,255,0.06);
+  border-radius: 6px;
 }
 
 .project-info { padding:18px; display:flex; flex-direction:column; gap:10px; }
