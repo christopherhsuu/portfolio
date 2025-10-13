@@ -67,9 +67,10 @@ body {
 .hero-lead { color: var(--muted-text); max-width: 60ch; }
 
 /* Projects */
-.project-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+/* stack projects vertically and make each card larger */
+.project-grid { display: grid; gap: 36px; grid-template-columns: 1fr; max-width: 760px; margin: 0 auto; }
 
-.project-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius: var(--radius); overflow: hidden; box-shadow: 0 6px 18px rgba(2,6,23,0.45); display:flex; flex-direction:column; border: 0.5px solid rgba(255,255,255,0.015); }
+.project-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius: var(--radius); overflow: hidden; box-shadow: 0 6px 18px rgba(2,6,23,0.45); display:flex; flex-direction:column; border: 0.5px solid rgba(255,255,255,0.015); min-height: 420px; }
 .project-card figure {
   margin: 0;
   display: flex;
@@ -126,14 +127,34 @@ body {
 
 /* ---------- Responsive ---------- */
 @media (min-width:720px) {
-  .project-card img { max-height:220px; }
-  .hero-title { font-size:2.4rem; }
+  .project-card img { max-height:260px; }
+  .hero-title { font-size:2.6rem; }
 }
 
 @media (min-width:1000px) {
-  .project-card img { max-height:260px; }
-  .project-grid { gap:28px; }
+  /* keep single-column stack on wide screens for vertical layout */
+  .project-card img { max-height:320px; }
+  .project-grid { gap:40px; }
+  .project-grid { max-width:960px; }
 }
+
+/* contact bar */
+.contact-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #123049, #0b2b3a);
+  color: #eaf6ff;
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 60;
+}
+.contact-bar .container { display:flex; gap:20px; align-items:center; justify-content:center; }
+.contact-bar a { color: #bfeaff; text-decoration:underline; margin-left:8px; }
 
 /* small helper for screen-reader-only text */
 .sr-only { position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
