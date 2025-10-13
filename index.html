@@ -1,91 +1,104 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Christopher Hsu | Sabermetrics Projects</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <!-- Header -->
-  <header>
-    <h1>Christopher Hsu</h1>
-    <p class="tagline">Data Science &amp; Sabermetrics Research</p>
-    <nav>
-      <ul>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Hero Banner -->
-  <section id="hero">
-    <div class="hero-content">
-      <h2>Analyzing Baseball Through Data</h2>
-      <p>Exploring swing mechanics, predictive modeling, and player performance through advanced statistics.</p>
-    </div>
-  </section>
-
-  <!-- Projects Grid -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="project-grid">
-
-      <!-- Project 1 -->
-      <div class="project-card">
-        <img src="images/pitchsequence_thumb.png" alt="Swing Analysis thumbnail">
-        <div class="project-info">
-          <h3>StatForecast</h3>
-          <p>Uses past data and trends to predict future player performance.</p>
-          <div class="buttons">
-            <a href="https://christopherhsuu-pitchsequences.streamlit.app" target="_blank" class="btn">Launch App</a>
-            <a href="https://github.com/christopherhsuu/pitchsequence/tree/main" target="_blank" class="btn">View Code</a>
-          </div>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Christopher Hsu — sabermetrics projects, data science, and interactive apps for analyzing baseball performance.">
+    <title>Christopher Hsu — Sabermetrics Projects</title>
+    <!-- Use a clean, readable system font stack; optionally replace with a webfont -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <a href="/" class="site-title">Christopher Hsu</a>
+          <p class="tagline">Data science &amp; sabermetrics</p>
         </div>
+        <nav aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
       </div>
+    </header>
 
-      <!-- Project 2 -->
-      <div class="project-card">
-        <img src="images/statforecast_thumb.png" alt="StatForecast thumbnail">
-        <div class="project-info">
-          <h3>StatForecast</h3>
-          <p>Interactive Streamlit app predicting player performance using sabermetric models and machine learning.</p>
-          <div class="buttons">
-            <a href="https://statforecast.streamlit.app" target="_blank" class="btn">Launch App</a>
-            <a href="https://github.com/christopherhsuu/statforecast" target="_blank" class="btn">View Code</a>
-          </div>
+    <main>
+      <section id="hero" class="hero">
+        <div class="container">
+          <h1 class="hero-title">Exploring Baseball with Data</h1>
+          <p class="hero-lead">Interactive visualizations, predictive models, and reproducible analysis focused on player performance and pitch sequencing.</p>
         </div>
+      </section>
+
+      <section id="projects" class="container section">
+        <h2>Projects</h2>
+        <p class="section-intro">Select a project to open the live app or view the repository. Thumbnails are representative snapshots.</p>
+
+        <div class="project-grid">
+
+          <article class="project-card">
+            <a class="project-link" href="/projects/statforecast.html">
+              <figure>
+                <img src="images/thumb-pitchsequence.svg" alt="Pitch sequence visualization thumbnail" width="800" height="450">
+                <figcaption class="sr-only">Pitch sequence thumbnail for interactive app</figcaption>
+              </figure>
+            </a>
+            <div class="project-info">
+              <h3>Pitch Sequences</h3>
+              <p class="muted">Interactive app that visualizes pitch sequences and swing outcomes. Includes filters by player and game context.</p>
+              <div class="buttons">
+                <a class="btn" href="https://christopherhsuu-pitchsequences.streamlit.app" target="_blank" rel="noopener noreferrer">Launch</a>
+                <a class="btn ghost" href="https://github.com/christopherhsuu/pitchsequence/tree/main" target="_blank" rel="noopener noreferrer">Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <a class="project-link" href="https://statforecast.streamlit.app" target="_blank" rel="noopener noreferrer">
+              <figure>
+                <img src="images/thumb-statforecast.svg" alt="StatForecast app thumbnail" width="800" height="450">
+                <figcaption class="sr-only">StatForecast thumbnail showing predicted player stats</figcaption>
+              </figure>
+            </a>
+            <div class="project-info">
+              <h3>StatForecast</h3>
+              <p class="muted">A forecasting tool using historical sabermetrics and machine learning to estimate future player performance.</p>
+              <div class="buttons">
+                <a class="btn" href="https://statforecast.streamlit.app" target="_blank" rel="noopener noreferrer">Launch</a>
+                <a class="btn ghost" href="https://github.com/christopherhsuu/statforecast" target="_blank" rel="noopener noreferrer">Code</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <section id="about" class="container section">
+        <h2>About</h2>
+        <p class="muted">Im a data science student focused on reproducible analysis, clear visual design, and practical models for baseball analytics. I build interactive tools and write reproducible notebooks so others can explore the models and data.</p>
+      </section>
+
+      <section id="contact" class="container section">
+        <h2>Contact</h2>
+        <p>If you'd like to collaborate or ask about a project:</p>
+        <ul class="contact-list">
+          <li>Email: <a href="mailto:christopherhsu@gmail.com">christopherhsu@gmail.com</a></li>
+          <li>GitHub: <a href="https://github.com/christopherhsuu" target="_blank" rel="noopener noreferrer">github.com/christopherhsuu</a></li>
+          <li>LinkedIn: <a href="https://linkedin.com/in/martin-j-hsu" target="_blank" rel="noopener noreferrer">linkedin.com/in/martin-j-hsu</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="muted">© 2025 Christopher Hsu — Built with data, code, and curiosity.</p>
       </div>
-
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about">
-    <h2>About</h2>
-    <p>
-      I’m a data science student passionate about sabermetrics and sports analytics.
-      My work combines statistical modeling, visualization, and machine learning to uncover 
-      new insights into baseball performance and strategy.
-    </p>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>If you’d like to collaborate or connect:</p>
-    <ul>
-      <li>Email: <a href="mailto:christopherhsu@gmail.com">christopherhsu@gmail.com</a></li>
-      <li>GitHub: <a href="https://github.com/christopherhsuu" target="_blank">github.com/christopherhsuu</a></li>
-      <li>LinkedIn: <a href="https://linkedin.com/in/martin-j-hsu" target="_blank">linkedin.com/in/martin-j-hsu</a></li>
-    </ul>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Christopher Hsu. Built with data, code, and curiosity.</p>
-  </footer>
-</body>
+    </footer>
+  </body>
 </html>

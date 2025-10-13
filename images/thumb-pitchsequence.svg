@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Pitch Sequences thumbnail">
+	<defs>
+		<linearGradient id="g" x1="0" x2="1">
+			<stop offset="0" stop-color="#0b5cff" stop-opacity="0.95" />
+			<stop offset="1" stop-color="#2ac7ff" stop-opacity="0.95" />
+		</linearGradient>
+	</defs>
+	<rect width="1200" height="675" fill="#0f1724" rx="12"/>
+	<rect x="60" y="60" width="1080" height="555" rx="10" fill="url(#g)" opacity="0.12"/>
+	<g fill="#fff" font-family="Inter, Arial, sans-serif">
+		<text x="90" y="160" font-size="46" font-weight="700">Pitch Sequences</text>
+		<text x="90" y="220" font-size="22" fill="#e6eefc">Visualize pitch location, type, and outcome over time</text>
+	</g>
+	<!-- simple diagram lines -->
+	<g stroke="#ffffff" stroke-opacity="0.6" stroke-width="3" fill="none">
+		<path d="M120 340 C 240 300, 360 420, 480 360" />
+		<path d="M240 420 C 360 360, 480 480, 600 420" stroke-opacity="0.35" />
+		<circle cx="480" cy="360" r="8" fill="#fff" />
+		<circle cx="600" cy="420" r="6" fill="#fff" opacity="0.9" />
+	</g>
+</svg>
