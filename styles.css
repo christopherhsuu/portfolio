@@ -73,23 +73,24 @@ body {
 .project-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius: var(--radius); overflow: hidden; box-shadow: 0 6px 18px rgba(2,6,23,0.45); display:flex; flex-direction:column; border: 0.5px solid rgba(255,255,255,0.015); min-height: 420px; }
 .project-card figure {
   margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-  min-height: 200px; /* reserve space for thumbnail */
   padding: 12px; /* inner padding so SVGs don't touch the edges */
   border-bottom: 0.5px solid rgba(255,255,255,0.015); /* subtle separator to match cards */
   position: relative;
+  aspect-ratio: 16 / 9; /* consistent frame for thumbnails */
+  width: 100%;
+  max-height: 380px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .project-card img {
   display: block;
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: 200px; /* keeps cards uniform */
-  object-fit: contain; /* show whole image */
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* show whole image centered */
 }
 
 .project-card figure::before {
@@ -127,13 +128,13 @@ body {
 
 /* ---------- Responsive ---------- */
 @media (min-width:720px) {
-  .project-card img { max-height:260px; }
+  .project-card figure { aspect-ratio: 16 / 9; max-height: 320px; }
   .hero-title { font-size:2.6rem; }
 }
 
 @media (min-width:1000px) {
   /* keep single-column stack on wide screens for vertical layout */
-  .project-card img { max-height:320px; }
+  .project-card figure { max-height: 380px; aspect-ratio: 16 / 9; }
   .project-grid { gap:40px; }
   .project-grid { max-width:960px; }
 }
