@@ -114,14 +114,12 @@ body { padding-bottom: 92px; }
   max-height: 420px;
   overflow: hidden;
 }
-.project-card figure { display:flex; align-items:center; justify-content:center; }
+.project-card figure { display:block; }
 .project-card img {
   display: block;
-  width: auto;
-  max-width: 92%;
-  height: auto;
-  max-height: 92%;
-  object-fit: contain; /* ensure the full thumbnail fits without cropping */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fill the frame and center the graphic */
   object-position: center center; /* center the image within the frame */
   background-color: var(--card-bg); /* ensure letterboxed areas are opaque */
 }

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid meet" role="img" aria-label="StatForecast thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" role="img" aria-label="StatForecast thumbnail">
   <defs>
     <linearGradient id="bg2" x1="0" x2="1">
       <stop offset="0" stop-color="#031026" />
@@ -14,8 +14,8 @@
 
   <!-- title removed from thumbnail. Bars enlarged/centered -->
 
-  <!-- enlarged centered bars and smoother trend -->
-  <g transform="translate(200,180) scale(1.22)">
+  <!-- centered bars and smoother trend (scale removed) -->
+  <g transform="translate(180,140)">
     <rect x="0" y="80" width="120" height="260" rx="12" fill="url(#bargrad)" opacity="0.98" />
     <rect x="160" y="40" width="120" height="300" rx="12" fill="url(#bargrad)" opacity="0.98" />
     <rect x="320" y="10" width="120" height="330" rx="12" fill="url(#bargrad)" opacity="0.98" />
