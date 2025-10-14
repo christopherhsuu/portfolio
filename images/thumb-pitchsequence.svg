@@ -1,21 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Pitch Sequences thumbnail">
 	<defs>
-		<linearGradient id="g" x1="0" x2="1">
-			<stop offset="0" stop-color="#0b5cff" stop-opacity="0.95" />
-			<stop offset="1" stop-color="#2ac7ff" stop-opacity="0.95" />
+		<linearGradient id="bg" x1="0" x2="1">
+			<stop offset="0" stop-color="#041226" />
+			<stop offset="1" stop-color="#072033" />
 		</linearGradient>
+		<linearGradient id="accent" x1="0" x2="1">
+			<stop offset="0" stop-color="#39a2ff" />
+			<stop offset="1" stop-color="#2f67ff" />
+		</linearGradient>
+		<filter id="softglow" x="-50%" y="-50%" width="200%" height="200%">
+			<feGaussianBlur stdDeviation="18" result="b" />
+			<feBlend in="SourceGraphic" in2="b" mode="screen" />
+		</filter>
 	</defs>
-	<rect width="1200" height="675" fill="#0f1724" rx="12"/>
-	<rect x="60" y="60" width="1080" height="555" rx="10" fill="url(#g)" opacity="0.12"/>
-	<g fill="#fff" font-family="Inter, Arial, sans-serif">
-		<text x="90" y="160" font-size="46" font-weight="700">Pitch Sequences</text>
-		<text x="90" y="220" font-size="22" fill="#e6eefc">Visualize pitch location, type, and outcome over time</text>
+
+	<rect width="1200" height="675" rx="18" fill="url(#bg)" />
+
+	<!-- top title block -->
+	<g font-family="Inter, Arial, sans-serif" fill="#eaf6ff">
+		<text x="80" y="120" font-size="44" font-weight="700">PITCH</text>
+		<text x="80" y="170" font-size="44" font-weight="700">SEQUENCES</text>
 	</g>
-	<!-- simple diagram lines -->
-	<g stroke="#ffffff" stroke-opacity="0.6" stroke-width="3" fill="none">
-		<path d="M120 340 C 240 300, 360 420, 480 360" />
-		<path d="M240 420 C 360 360, 480 480, 600 420" stroke-opacity="0.35" />
-		<circle cx="480" cy="360" r="8" fill="#fff" />
-		<circle cx="600" cy="420" r="6" fill="#fff" opacity="0.9" />
+
+	<!-- big pitch-curves -->
+	<g transform="translate(80,220)" filter="url(#softglow)">
+		<path d="M40 160 C 140 80, 280 120, 380 100 C 500 70, 600 140, 720 120" stroke="url(#accent)" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.95" />
+		<path d="M60 220 C 160 140, 300 180, 420 160 C 540 140, 640 210, 760 190" stroke="#80c6ff" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.8" />
+
+		<!-- pitch dots -->
+		<circle cx="380" cy="100" r="10" fill="#ffffff" />
+		<circle cx="720" cy="120" r="8" fill="#ffffff" opacity="0.95" />
 	</g>
+
+	<!-- subtle frame and bottom glow -->
+	<rect x="48" y="96" width="1104" height="458" rx="12" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+	<ellipse cx="600" cy="620" rx="420" ry="40" fill="#062034" opacity="0.6" />
 </svg>

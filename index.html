@@ -30,9 +30,27 @@
 
     <main>
       <section id="hero" class="hero">
-        <div class="container">
+        <div class="hero-visual">
+          <!-- inline animated SVG: simple pitch trajectories -->
+          <svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid slice" class="hero-svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="hgrad" x1="0" x2="1">
+                <stop offset="0" stop-color="#2f8cff" stop-opacity="0.9"/>
+                <stop offset="1" stop-color="#63d1ff" stop-opacity="0.7"/>
+              </linearGradient>
+            </defs>
+            <rect width="1200" height="300" fill="rgba(8,12,18,0.0)" />
+            <g class="trajectories" stroke="url(#hgrad)" stroke-width="3" fill="none" stroke-linecap="round">
+              <path class="traj t1" d="M40 220 C 200 140, 380 140, 540 80" opacity="0.9" />
+              <path class="traj t2" d="M120 240 C 260 160, 420 160, 640 120" opacity="0.75" />
+              <path class="traj t3" d="M200 200 C 340 120, 500 120, 760 60" opacity="0.6" />
+            </g>
+          </svg>
+        </div>
+        <div class="container hero-content">
           <h1 class="hero-title">Exploring Baseball with Data</h1>
-          <p class="hero-lead">Interactive visualizations, predictive models, and reproducible analysis focused on player performance and pitch sequencing.</p>
+          <p class="hero-hook">Turning swings and stats into insight.</p>
+          <p class="hero-intro">I use data to make baseball smarter — from predicting pitches to visualizing player tendencies.</p>
         </div>
       </section>
 
@@ -42,7 +60,7 @@
 
         <div class="project-grid">
 
-          <article class="project-card">
+          <article class="project-card accent-blue fade-in">
             <a class="project-link" href="/projects/pitchsequences.html">
                   <figure>
                     <img src="images/thumb-pitchsequence.svg" alt="Pitch sequence visualization thumbnail" width="800" height="450">
@@ -52,14 +70,15 @@
             <div class="project-info">
               <h3>Pitch Sequences</h3>
               <p class="muted">Interactive app that visualizes pitch sequences and swing outcomes. Includes filters by player and game context.</p>
+              <p class="summary">Explore how pitch patterns and sequencing relate to swing timing and contact quality. Useful for scouting and pitch design.</p>
               <div class="buttons">
-                <a class="btn" href="https://christopherhsuu-pitchsequences.streamlit.app" target="_blank" rel="noopener noreferrer">Launch</a>
+                <a class="btn" href="https://christopherhsuu-pitchsequences.streamlit.app" target="_blank" rel="noopener noreferrer">Launch (Live)</a>
                 <a class="btn ghost" href="https://github.com/christopherhsuu/pitchsequence/tree/main" target="_blank" rel="noopener noreferrer">Code</a>
               </div>
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card accent-orange fade-in">
             <a class="project-link" href="/projects/statforecast.html">
               <figure>
                 <img src="images/thumb-statforecast.svg" alt="StatForecast app thumbnail" width="800" height="450">
@@ -69,14 +88,15 @@
             <div class="project-info">
               <h3>StatForecast</h3>
               <p class="muted">A forecasting tool using historical sabermetrics and machine learning to estimate future player performance.</p>
+              <p class="summary">Models and features designed to predict short-term player value and identify breakout candidates.</p>
               <div class="buttons">
-                <a class="btn" href="https://statforecast.streamlit.app" target="_blank" rel="noopener noreferrer">Launch</a>
+                <a class="btn" href="https://statforecast.streamlit.app" target="_blank" rel="noopener noreferrer">Launch (Live)</a>
                 <a class="btn ghost" href="https://github.com/christopherhsuu/statforecast" target="_blank" rel="noopener noreferrer">Code</a>
               </div>
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card accent-green fade-in">
             <a class="project-link" href="/projects/batterarchetypes.html">
               <figure>
                 <img src="images/thumb-batterarchetypes.svg" alt="Batter Archetypes app thumbnail" width="800" height="450">
@@ -86,8 +106,9 @@
             <div class="project-info">
               <h3>Batter Archetypes</h3>
               <p class="muted">Interactive app exploring hitter archetypes and profiles using data-driven clustering and visualizations.</p>
+              <p class="summary">Identify player archetypes and how approach adjustments can shift outcomes across pitch types.</p>
               <div class="buttons">
-                <a class="btn" href="https://hitterarchetypes.streamlit.app" target="_blank" rel="noopener noreferrer">Launch</a>
+                <a class="btn" href="https://hitterarchetypes.streamlit.app" target="_blank" rel="noopener noreferrer">Launch (Live)</a>
                 <a class="btn ghost" href="https://github.com/christopherhsuu/hitterarchetypes" target="_blank" rel="noopener noreferrer">Code</a>
               </div>
             </div>
@@ -112,5 +133,23 @@
         <p class="muted">© 2025 Christopher Hsu</p>
       </div>
     </footer>
+    <script>
+      // Fade-in elements on scroll
+      (function(){
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(e=>{
+            if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.fade-in').forEach(el=> io.observe(el));
+
+        // make project cards focusable for keyboard users
+        document.querySelectorAll('.project-card').forEach(card=>{
+          card.setAttribute('tabindex','0');
+          card.addEventListener('focus', ()=> card.classList.add('focused'));
+          card.addEventListener('blur', ()=> card.classList.remove('focused'));
+        });
+      })();
+    </script>
   </body>
 </html>
