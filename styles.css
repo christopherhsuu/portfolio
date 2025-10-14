@@ -114,6 +114,20 @@ body {
 .btn.ghost { background:transparent; border:1px solid rgba(47,140,255,0.12); color:var(--accent); }
 .btn:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(47,140,255,0.12); }
 
+/* large prominent launch button used on project pages */
+.launch-big {
+  display:inline-block;
+  background: linear-gradient(180deg, var(--accent), #1d6fe6);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-weight:700;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(17,88,204,0.18);
+  margin-top: 12px;
+}
+.launch-big:hover { transform: translateY(-2px); }
+
 /* Contact + Footer */
 .contact-list { list-style:none; padding:0; margin:8px 0 0 0; display:flex; flex-direction:column; gap:8px; }
 .contact-list a { color:var(--accent); text-decoration:none; }
