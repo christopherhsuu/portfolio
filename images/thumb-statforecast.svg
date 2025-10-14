@@ -12,20 +12,16 @@
 
   <rect width="1200" height="675" rx="18" fill="url(#bg2)" />
 
-  <!-- subtle badge (replaces large title) -->
-  <g transform="translate(86,520)" font-family="Inter, Arial, sans-serif" fill="#eaf6ff" opacity="0.95">
-    <rect x="0" y="-28" rx="8" ry="8" width="180" height="40" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" />
-    <text x="12" y="-2" font-size="14" font-weight="600">StatForecast</text>
-  </g>
+  <!-- title removed from thumbnail. Bars enlarged/centered -->
 
-  <!-- bars and trend -->
-  <g transform="translate(120,240)">
-    <rect x="0" y="120" width="90" height="180" rx="10" fill="url(#bargrad)" opacity="0.95" />
-    <rect x="130" y="60" width="90" height="240" rx="10" fill="url(#bargrad)" opacity="0.95" />
-    <rect x="260" y="20" width="90" height="280" rx="10" fill="url(#bargrad)" opacity="0.95" />
-    <rect x="390" y="0" width="90" height="300" rx="10" fill="url(#bargrad)" opacity="0.95" />
+  <!-- enlarged centered bars and smoother trend -->
+  <g transform="translate(200,180) scale(1.22)">
+    <rect x="0" y="80" width="120" height="260" rx="12" fill="url(#bargrad)" opacity="0.98" />
+    <rect x="160" y="40" width="120" height="300" rx="12" fill="url(#bargrad)" opacity="0.98" />
+    <rect x="320" y="10" width="120" height="330" rx="12" fill="url(#bargrad)" opacity="0.98" />
+    <rect x="480" y="0" width="120" height="350" rx="12" fill="url(#bargrad)" opacity="0.98" />
 
-    <path d="M20 200 C 140 140, 260 120, 380 80" stroke="#5fc0ff" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
+    <path d="M40 260 C 220 160, 420 120, 580 60" stroke="#5fc0ff" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.98" />
   </g>
 
   <!-- clean frame -->

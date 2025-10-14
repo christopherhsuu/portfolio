@@ -16,20 +16,16 @@
 
 	<rect width="1200" height="675" rx="18" fill="url(#bg)" />
 
-	<!-- subtle badge (replaces large title) -->
-	<g transform="translate(80,520)" font-family="Inter, Arial, sans-serif" fill="#eaf6ff" opacity="0.95">
-		<rect x="0" y="-28" rx="8" ry="8" width="220" height="40" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" />
-		<text x="14" y="-2" font-size="14" font-weight="600">Pitch Sequences</text>
-	</g>
+	<!-- title removed from thumbnail (displayed below card). Graphic enlarged and centered below -->
 
-	<!-- big pitch-curves -->
-	<g transform="translate(80,220)" filter="url(#softglow)">
-		<path d="M40 160 C 140 80, 280 120, 380 100 C 500 70, 600 140, 720 120" stroke="url(#accent)" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.95" />
-		<path d="M60 220 C 160 140, 300 180, 420 160 C 540 140, 640 210, 760 190" stroke="#80c6ff" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.8" />
+	<!-- enlarged and centered pitch-curves -->
+	<g transform="translate(120,140) scale(1.28)" filter="url(#softglow)">
+		<path d="M120 160 C 280 40, 520 100, 760 80 C 920 60, 980 200, 1120 180" stroke="url(#accent)" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.98" />
+		<path d="M80 220 C 240 100, 480 160, 680 140 C 840 120, 960 260, 1120 240" stroke="#80c6ff" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.85" />
 
-		<!-- pitch dots -->
-		<circle cx="380" cy="100" r="10" fill="#ffffff" />
-		<circle cx="720" cy="120" r="8" fill="#ffffff" opacity="0.95" />
+		<!-- pitch dots, centered over curves -->
+		<circle cx="760" cy="80" r="12" fill="#ffffff" />
+		<circle cx="1120" cy="180" r="10" fill="#ffffff" opacity="0.95" />
 	</g>
 
 	<!-- subtle bottom glow -->

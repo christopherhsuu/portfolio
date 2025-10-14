@@ -142,16 +142,7 @@ body { padding-bottom: 92px; }
 .site-header .nav-list a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: linear-gradient(90deg, var(--accent-grad-start), var(--accent-grad-end)); transform: scaleX(0); transform-origin: left center; transition: transform 220ms ease; }
 .site-header .nav-list a:hover::after, .site-header .nav-list a.active::after { transform: scaleX(1); }
 
-.project-card figure::before {
-  /* small top strip to match the darker header line present on some thumbnails */
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 12px;
-  background: rgba(11,92,255,0.05);
-}
+.project-card figure::before { content: none; }
 
 /* header logo */
 .site-logo { width:44px; height:44px; vertical-align:middle; display:inline-block; margin-right:10px; }
