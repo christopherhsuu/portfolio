@@ -217,8 +217,28 @@ body {
   align-items: center;
   z-index: 60;
 }
-.contact-bar .container { display:flex; gap:20px; align-items:center; justify-content:center; }
-.contact-bar a { color: #bfeaff; text-decoration:underline; margin-left:8px; }
+.contact-bar .container { display:flex; gap:8px; align-items:center; justify-content:center; flex-direction:column; }
+.contact-row { width:100%; display:flex; align-items:center; justify-content:center; gap:18px; }
+.contact-icons { display:flex; gap:12px; align-items:center; justify-content:center; }
+.contact-btn { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:10px; background: transparent; color: #cfeefd; text-decoration:none; border:1px solid transparent; transition: background 180ms ease, transform 180ms ease, color 180ms ease; }
+.contact-btn svg { display:block; }
+.contact-btn:hover { background: rgba(255,255,255,0.03); transform: translateY(-3px); color: #fff; }
+
+/* copyright visible and minimal */
+.contact-bar .container::after {
+  content: '© 2025 Christopher Hsu';
+  display:block;
+  margin-top:8px;
+  color: var(--muted-text);
+  font-size: 0.95rem;
+  opacity: 0.95;
+}
+
+@media (min-width:720px) {
+  .contact-bar .container { flex-direction:row; gap:18px; }
+  .contact-row { gap:28px; }
+  .contact-bar { padding:12px 28px; }
+}
 
 /* small helper for screen-reader-only text */
 .sr-only { position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
