@@ -16,10 +16,10 @@
 
 	<rect width="1200" height="675" rx="18" fill="url(#bg)" />
 
-	<!-- top title block -->
-	<g font-family="Inter, Arial, sans-serif" fill="#eaf6ff">
-		<text x="80" y="120" font-size="44" font-weight="700">PITCH</text>
-		<text x="80" y="170" font-size="44" font-weight="700">SEQUENCES</text>
+	<!-- subtle badge (replaces large title) -->
+	<g transform="translate(80,520)" font-family="Inter, Arial, sans-serif" fill="#eaf6ff" opacity="0.95">
+		<rect x="0" y="-28" rx="8" ry="8" width="220" height="40" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" />
+		<text x="14" y="-2" font-size="14" font-weight="600">Pitch Sequences</text>
 	</g>
 
 	<!-- big pitch-curves -->
@@ -32,7 +32,6 @@
 		<circle cx="720" cy="120" r="8" fill="#ffffff" opacity="0.95" />
 	</g>
 
-	<!-- subtle frame and bottom glow -->
-	<rect x="48" y="96" width="1104" height="458" rx="12" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+	<!-- subtle bottom glow -->
 	<ellipse cx="600" cy="620" rx="420" ry="40" fill="#062034" opacity="0.6" />
 </svg>

@@ -12,8 +12,10 @@
 
   <rect width="1200" height="675" rx="18" fill="url(#bg2)" />
 
-  <g font-family="Inter, Arial, sans-serif" fill="#eaf6ff">
-    <text x="86" y="120" font-size="46" font-weight="700">STATFORECAST</text>
+  <!-- subtle badge (replaces large title) -->
+  <g transform="translate(86,520)" font-family="Inter, Arial, sans-serif" fill="#eaf6ff" opacity="0.95">
+    <rect x="0" y="-28" rx="8" ry="8" width="180" height="40" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" />
+    <text x="12" y="-2" font-size="14" font-weight="600">StatForecast</text>
   </g>
 
   <!-- bars and trend -->
@@ -26,5 +28,5 @@
     <path d="M20 200 C 140 140, 260 120, 380 80" stroke="#5fc0ff" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" />
   </g>
 
-  <rect x="96" y="98" width="1008" height="452" rx="12" fill="none" stroke="rgba(255,255,255,0.03)" />
+  <!-- clean frame -->
 </svg>

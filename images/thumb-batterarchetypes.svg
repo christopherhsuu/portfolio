@@ -11,9 +11,10 @@
   </defs>
 
   <rect width="1200" height="675" rx="18" fill="url(#bg3)" />
-  <g font-family="Inter, Arial, sans-serif" fill="#eaf6ff">
-    <text x="86" y="120" font-size="44" font-weight="700">BATTER</text>
-    <text x="86" y="172" font-size="44" font-weight="700">ARCHETYPES</text>
+  <!-- subtle badge (replaces large title) -->
+  <g transform="translate(86,520)" font-family="Inter, Arial, sans-serif" fill="#eaf6ff" opacity="0.95">
+    <rect x="0" y="-28" rx="8" ry="8" width="220" height="40" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" />
+    <text x="14" y="-2" font-size="14" font-weight="600">Batter Archetypes</text>
   </g>
 
   <g transform="translate(220,260)">
@@ -23,5 +24,5 @@
     <circle cx="520" cy="60" r="60" fill="#66c8e3" opacity="0.95" />
   </g>
 
-  <rect x="96" y="98" width="1008" height="452" rx="12" fill="none" stroke="rgba(255,255,255,0.03)" />
+  <!-- clean frame -->
 </svg>

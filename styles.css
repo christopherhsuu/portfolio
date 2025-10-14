@@ -27,6 +27,8 @@ body {
   -moz-osx-font-smoothing:grayscale;
   font-size: 16px;
 }
+/* keep page content clear of the fixed contact bar */
+body { padding-bottom: 92px; }
 
 /* ---------- Header ---------- */
 /* ---------- Header ---------- */
@@ -99,11 +101,11 @@ body {
 /* stack projects vertically and make each card larger */
 .project-grid { display: grid; gap: 36px; grid-template-columns: 1fr; max-width: 760px; margin: 0 auto; }
 
-.project-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius: var(--radius); overflow: hidden; box-shadow: 0 6px 18px rgba(2,6,23,0.45); display:flex; flex-direction:column; border: 0.5px solid rgba(255,255,255,0.015); min-height: 420px; }
+.project-card { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; box-shadow: 0 6px 18px rgba(2,6,23,0.45); display:flex; flex-direction:column; border: 0.5px solid rgba(255,255,255,0.03); min-height: 420px; }
 .project-card figure {
   margin: 0;
   display: block;
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+  background: var(--card-bg);
   padding: 0; /* full-bleed image container */
   border-bottom: 0.5px solid rgba(255,255,255,0.015); /* subtle separator to match cards */
   position: relative;
@@ -117,7 +119,6 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain; /* ensure the full thumbnail fits without cropping */
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
   object-position: center center; /* center the image within the frame */
 }
 
@@ -225,14 +226,7 @@ body {
 .contact-btn:hover { background: rgba(255,255,255,0.03); transform: translateY(-3px); color: #fff; }
 
 /* copyright visible and minimal */
-.contact-bar .container::after {
-  content: '© 2025 Christopher Hsu';
-  display:block;
-  margin-top:8px;
-  color: var(--muted-text);
-  font-size: 0.95rem;
-  opacity: 0.95;
-}
+/* copyright displayed in main footer; removed duplicate in contact-bar */
 
 @media (min-width:720px) {
   .contact-bar .container { flex-direction:row; gap:18px; }
