@@ -32,17 +32,37 @@
       </div>
 
       <section style="margin-top:28px;">
-        <h2>About the project</h2>
-        <p class="muted">This project includes data ingestion, feature engineering, and several forecasting models (linear models, tree-based, and neural nets). The Streamlit app demonstrates the predictions and lets users explore inputs.</p>
+        <h2>Methodology</h2>
+        <p class="muted">I collected historical player-season and game-level sabermetrics (xwOBA, exit velocity, launch angle, strikeout rate, walk rate) and engineered features for trend, recent-form, and aging. I compared baseline baserate models with machine learning approaches.</p>
       </section>
 
       <section style="margin-top:18px;">
-        <h2>How to run locally</h2>
+        <h2>Data</h2>
+        <p class="muted">Data sources: Statcast CSV exports, Lahman for historical context, and play-by-play event datasets. I cleaned and aggregated to per-player seasonal summaries and created rolling windows for recent performance.</p>
+      </section>
+
+      <section style="margin-top:18px;">
+        <h2>Models</h2>
+        <p class="muted">I trained several models: ridge regression, random forest, XGBoost, and a small feed-forward neural network. Models were evaluated with cross-validation on time-based splits to avoid leakage.</p>
+      </section>
+
+      <section style="margin-top:18px;">
+        <h2>Findings</h2>
+        <p class="muted">Tree-based models with careful feature engineering outperformed linear baselines on mean absolute error for seasonal stat forecasts. Important features included age-adjusted plate appearances, recent month performance, and exit velocity percentiles.</p>
+      </section>
+
+      <section style="margin-top:18px;">
+        <h2>Reproducibility</h2>
         <pre style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px; color:var(--muted-text);">
 # clone
 git clone https://github.com/christopherhsuu/statforecast
 cd statforecast
-# follow the project's README to set up a venv and install dependencies
+# create and activate virtualenv, then install
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+# run the Streamlit app
+streamlit run app.py
         </pre>
       </section>
     </main>

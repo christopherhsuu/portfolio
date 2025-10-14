@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Batter Archetypes — Christopher Hsu</title>
+    <link href="../styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <a href="/" class="site-title">Christopher Hsu</a>
+          <p class="tagline">Data science &amp; sabermetrics</p>
+        </div>
+        <nav aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="#contact-bar">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container section">
+      <h1>Batter Archetypes</h1>
+      <p class="muted">An exploratory clustering of hitters to identify archetypes (power/speed/contact/etc.) and visualize archetype profiles.</p>
+
+      <div style="margin-top:20px; display:flex; gap:12px;">
+        <a class="btn" href="https://hitterarchetypes.streamlit.app" target="_blank" rel="noopener noreferrer">Open Live App</a>
+        <a class="btn ghost" href="https://github.com/christopherhsuu/hitterarchetypes" target="_blank" rel="noopener noreferrer">Repository</a>
+      </div>
+
+      <section style="margin-top:28px;">
+        <h2>Methodology</h2>
+        <p class="muted">I aggregated seasonal batting metrics and selected features (ISO, K%, BB%, Sprint Speed, exit velocity percentiles). After scaling, I applied k-means and silhouette analysis to choose cluster counts and produced archetype centroids for interpretation.</p>
+      </section>
+
+      <section style="margin-top:18px;">
+        <h2>Findings</h2>
+        <p class="muted">The clusters reveal intuitive groups: power hitters with high ISO and exit velocity, contact specialists with low K% and high batting average, and speed-oriented hitters. The visualization helps scouting and lineup construction experiments.</p>
+      </section>
+
+      <section style="margin-top:18px;">
+        <h2>How I built it</h2>
+        <ol class="muted">
+          <li>Data ingest: batting metrics + Statcast for speed and exit velocity.</li>
+          <li>Feature engineering: percentiles and rate metrics; imputed missing values for players with limited playing time.</li>
+          <li>Clustering: k-means and silhouette analysis; centroid visualization.</li>
+          <li>Deployment: Streamlit app to explore clusters and player membership.</li>
+        </ol>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="muted">© 2025 Christopher Hsu</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Pitch Sequences — Christopher Hsu</title>
+    <link href="../styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <a href="/" class="site-title">Christopher Hsu</a>
+          <p class="tagline">Data science &amp; sabermetrics</p>
+        </div>
+        <nav aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="#contact-bar">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container section">
+      <h1>Pitch Sequences</h1>
+      <p class="muted">An interactive visualization of pitch sequences, pitch types, and swing outcomes. The app helps explore sequencing patterns and batter responses by zone and count.</p>
+
+      <div style="margin-top:20px; display:flex; gap:12px;">
+        <a class="btn" href="https://christopherhsuu-pitchsequences.streamlit.app" target="_blank" rel="noopener noreferrer">Open Live App</a>
+        <a class="btn ghost" href="https://github.com/christopherhsuu/pitchsequence/tree/main" target="_blank" rel="noopener noreferrer">Repository</a>
+      </div>
+
+      <section style="margin-top:28px;">
+        <h2>Methodology</h2>
+        <p class="muted">I parsed pitch-by-pitch data from Statcast, normalized pitch locations, and labeled events (swing, miss, contact). I built a sequence visualization with interactive filters (player, pitch type, count) and aggregated summaries.</p>
+      </section>
+
+      <section style="margin-top:18px;">
+        <h2>Findings</h2>
+        <p class="muted">Common sequencing patterns emerge by pitcher and matchup: effective pitchers use change-of-pace pitches to disrupt timing, while location diversity correlates with lower slugging against. Visual exploration helped identify several patterns worth deeper modeling.</p>
+      </section>
+
+      <section style="margin-top:18px;">
+        <h2>How I built it</h2>
+        <ol class="muted">
+          <li>Data ingest: Statcast CSVs via the MLB API.</li>
+          <li>Cleaning: normalized coordinates, removed incomplete pitches, and merged play-level context.</li>
+          <li>Visualization: D3 for custom pitch maps inside a Streamlit app.</li>
+          <li>Export: packaged as a Streamlit app and deployed to Streamlit Cloud.</li>
+        </ol>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="muted">© 2025 Christopher Hsu</p>
+      </div>
+    </footer>
+  </body>
+</html>
