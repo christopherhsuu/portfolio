@@ -95,6 +95,18 @@ body { padding-bottom: 92px; }
 .hero-lead { color: var(--muted-text); max-width: 60ch; }
 .hero-hook { font-size: 1.05rem; color: var(--muted-text); margin-top: 6px; font-weight: 600; }
 .hero-intro { margin-top: 10px; color: var(--muted-text); max-width: 58ch; margin-left: auto; margin-right: auto; }
+
+/* skills snapshot in hero */
+.skills-snapshot { display:flex; gap:18px; justify-content:center; color:var(--muted-text); }
+.skills-snapshot .skill-col { background: rgba(255,255,255,0.02); padding:12px 14px; border-radius:10px; min-width:180px; }
+.skills-snapshot h4 { margin:0 0 8px 0; color:var(--text-color); font-size:0.95rem; }
+.skills-snapshot ul { margin:0; padding-left:18px; }
+.skills-snapshot li { margin-bottom:6px; }
+
+@media (max-width:880px) {
+  .skills-snapshot { flex-direction:column; align-items:center; }
+  .skills-snapshot .skill-col { min-width: unset; width:100%; max-width:520px; }
+}
 .hero-visual {
   position: fixed; /* fixed so it continues behind the Projects section */
   top: 0; left: 0; right: 0;
