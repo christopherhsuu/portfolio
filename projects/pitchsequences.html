@@ -32,31 +32,18 @@
       </div>
 
       <section style="margin-top:28px;">
-        <h2>Overview (for non-experts)</h2>
-        <p class="muted">This project shows the sequence of pitches thrown in an at-bat and the result of each pitch (swing, miss, contact). It's like replaying the order of pitches so you can see patterns and how batters react.</p>
-      </section>
+        <h2>About PitchSequence</h2>
+        <p class="muted">PitchSequence is a pitch-sequence recommender and run-value model that suggests next-pitch candidates in a given pitcher-vs-batter matchup and game state. It combines play-level Statcast data, derived batter archetypes, inferred pitcher arsenals, and a run-value prediction pipeline to rank pitches by expected run impact. The app is designed for practical use: a name-driven, stepwise UI lets users start an at-bat, pick a pitch, record the outcome, and immediately see updated recommendations.</p>
 
-      <section style="margin-top:18px;">
-        <h2>Who it's for</h2>
-        <p class="muted">Coaches and fans who want to understand how pitch order, location, and type change a batter's chances to swing or make contact.</p>
-      </section>
+        <p class="muted">The data pipeline begins with raw Statcast play-by-play and name-mapping CSVs. A preprocessing step standardizes pitch types, normalizes names, and removes invalid rows; feature engineering extracts per-play features (plate_x/plate_z approximations, last-pitch deltas, zone buckets) and aggregates batter-vs-pitchtype statistics. Processed datasets are saved as Parquet for efficient training and app runtime. To ensure robust aggregates, the pipeline filters to players and pitch-types with sufficient exposure and applies sensible imputation and winsorization for outliers.</p>
 
-      <section style="margin-top:18px;">
-        <h2>Quick start</h2>
-        <ol class="muted">
-          <li>Launch the demo.</li>
-          <li>Search for a pitcher or batter, then pick a game or date range.</li>
-          <li>Hover individual pitches to view details (pitch type, speed, result) and use filters to compare situations.</li>
-        </ol>
-      </section>
+        <p class="muted">The core model predicts run-value at the play level. Training loads the processed features and run-value labels, performs time-aware splits to avoid leakage, and builds a scikit-learn pipeline that handles encoding, imputation, scaling, and the estimator (e.g., GradientBoostingRegressor or RandomForestRegressor). Hyperparameters are tuned with grid/random search and cross-validation where appropriate, and the final pipeline is saved to `artifacts/runvalue_model.pkl` for production scoring. Inference combines model scores with batter-specific pitchtype aggregates; predicted run-values are converted into candidate probabilities by computing expected after-state run expectancy and applying a softmax over the negative expected runs to prioritize lower expected runs.</p>
 
-      <section style="margin-top:18px;">
-        <h2>Inputs &amp; Outputs</h2>
-        <p class="muted"><strong>Inputs:</strong> pitch-by-pitch event data (location, type, result). <strong>Outputs:</strong> interactive sequence plots, aggregated summaries by count and zone, and exportable CSVs for further analysis.</p>
+        <p class="muted">The Streamlit UI implements a stepwise at-bat flow: select names for batter and pitcher, set count and base-state, and start the session. The app generates candidate pitches using the model when available, falls back to heuristics when necessary, and renders candidate rankings with percent probabilities and strike-zone visuals. Each chosen pitch can be recorded with its outcome, and the session updates counts and recomputes candidates — enabling interactive what-if experiments and strategy analysis.</p>
 
-      <section style="margin-top:18px;">
-        <h2>Methodology (technical)</h2>
-        <p class="muted">I parsed pitch-by-pitch data from Statcast, normalized pitch locations, and labeled events (swing, miss, contact). I built a sequence visualization with interactive filters (player, pitch type, count) and aggregated summaries. Visualization is implemented with D3 inside Streamlit for interactivity.</p>
+        <p class="muted">Key technical and product challenges included name normalization (ensuring the UI selects the correct player row), handling sparse batter-pitchtype exposures, and keeping the recommender robust when model predictions are noisy. The project addresses these by using name-mapping files, minimum-exposure thresholds, and blended model/heuristic scoring to maintain sensible outputs. Future improvements include richer batter-level features (Statcast swing/contact metrics), ensemble stacking for more accurate run-value estimates, and an analytics dashboard to evaluate how recommended sequences perform on holdout data.</p>
+
+        <p class="muted">PitchSequence is practical for coaches, analysts, and researchers who want to explore sequencing decisions with both model-driven scores and transparent heuristics. The repo contains scripts to reproduce preprocessing, feature engineering, and training; deployment options include Streamlit Cloud for the interactive app and a serverless FastAPI endpoint for programmatic recommendations.</p>
       </section>
 
     </main>

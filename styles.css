@@ -163,6 +163,17 @@ body { padding-bottom: 92px; }
 .project-info h3 { margin:0; color:var(--text-color); font-size:1.075rem; }
 .muted { color:var(--muted-text); margin:0; }
 
+/* card thumbnail and title row */
+.project-title-row { display:flex; align-items:center; gap:12px; }
+.card-thumb { width:72px; height:48px; object-fit:cover; border-radius:8px; flex-shrink:0; box-shadow: 0 6px 18px rgba(2,6,23,0.24); }
+
+/* make whole card clickable */
+.project-card { cursor:pointer; }
+.project-card:focus-within, .project-card:hover { box-shadow: 0 14px 34px rgba(2,6,23,0.6); transform: translateY(-6px); }
+
+/* ensure buttons retain pointer and are exempt from card click handlers */
+.project-card .buttons a { cursor: pointer; }
+
 .buttons { margin-top:auto; display:flex; gap:10px; }
 .btn { background:var(--accent); color:#fff; text-decoration:none; padding:10px 14px; border-radius:8px; font-weight:600; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
 .btn.ghost { background:transparent; border:1px solid rgba(47,140,255,0.12); color:var(--accent); padding:10px 14px; display:inline-flex; align-items:center; justify-content:center; }

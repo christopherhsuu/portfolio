@@ -32,36 +32,18 @@
       </div>
 
       <section style="margin-top:28px;">
-        <h2>Overview (for non-experts)</h2>
-        <p class="muted">This project groups hitters into "archetypes" so you can compare players with similar profiles. Think of archetypes as labels like "Power Hitter" or "Contact Hitter" that summarize a player's typical strengths.</p>
-      </section>
+        <h2>About Hitter Archetypes</h2>
+        <p class="muted">Hitter Archetypes is a clustering and visualization project that groups MLB hitters into meaningful profiles using Statcast and tracking-derived features. The goal is to combine modern tracking metrics (exit velocity, launch angle, bat speed, intercept offsets) with traditional contact and power statistics to reveal intuitive player archetypes — for example, high-exit-velocity power hitters, precise contact specialists, or speed-first hitters.</p>
 
-      <section style="margin-top:18px;">
-        <h2>Who it's for</h2>
-        <p class="muted">Anyone curious about how hitters compare: coaches, fantasy players, or newcomers who want an easy way to see which players share similar skills.</p>
-      </section>
+        <p class="muted">The pipeline begins by aggregating per-player features from pitch- and swing-level data. Aggregation scripts compute descriptive statistics (mean, median, p95) and sample-size metrics such as `n_swings`. Preprocessing handles missing values, winsorizes extreme percentiles, and expands circular angle variables into sin/cos components. These transforms stabilize downstream PCA and clustering and avoid artifacts from wrap-around angle values.</p>
 
-      <section style="margin-top:18px;">
-        <h2>Quick start</h2>
-        <ol class="muted">
-          <li>Open the live demo.</li>
-          <li>Type a player's name into the search box to find their archetype.</li>
-          <li>Click the archetype centroid to see the typical stat profile for that group.</li>
-        </ol>
-      </section>
+        <p class="muted">Clustering follows a standard, reproducible flow: select diagnostic features, preprocess (angle expansion, log1p for counts, winsorization, robust scaling), optionally reduce dimensionality with PCA for visualization, and run KMeans (the repo examples use k=5). The code exports cluster assignments and per-cluster CSVs for downstream analysis and saves transformation metadata (scalers, PCA components) so new players can be assigned to clusters consistently.</p>
 
-      <section style="margin-top:18px;">
-        <h2>Inputs &amp; Outputs</h2>
-        <p class="muted"><strong>Inputs:</strong> seasonal batting metrics and Statcast features (e.g., ISO, strikeout rate, exit velocity). <strong>Outputs:</strong> archetype assignment for each player and centroid profiles that summarize each archetype.</p>
+        <p class="muted">The Streamlit showcase is the user-facing piece: it loads the aggregated `data/player_archetypes.csv`, merges optional name mappings, and renders an interactive PCA scatter colored by cluster. Users can hover to inspect players, view centroid heatmaps, and read plain-English summaries generated from z-scored centroid values. The app also supports searching for a player and comparing that player's features against the cluster mean with special handling for circular features.</p>
 
-      <section style="margin-top:18px;">
-        <h2>How I built it (technical)</h2>
-        <ol class="muted">
-          <li>Data ingest: batting metrics + Statcast for speed and exit velocity.</li>
-          <li>Feature engineering: percentiles and rate metrics; imputed missing values for players with limited playing time.</li>
-          <li>Clustering: standardized features, ran k-means, inspected silhouette scores and centroid stability.</li>
-          <li>Deployment: Streamlit app to explore clusters and player membership.</li>
-        </ol>
+        <p class="muted">Practical considerations include choosing stable features, filtering by sample size to avoid small-sample artifacts, and fixing cluster `random_state` for reproducibility. Diagnostic checks (centroid heatmaps, representative players, silhouette scores) guide labeling of archetypes and tuning of k. Future work includes supervised prediction tasks using these archetype features, richer temporal aggregations, and a hosted interactive dashboard with server-side cluster assignment.</p>
+
+        <p class="muted">Hitter Archetypes is useful for scouts, analysts, and anyone who wants to categorize hitters in a reproducible, explainable way. The repo includes scripts, notebooks, and utilities to reproduce the clustering pipeline and to extend the analysis with additional tracking metrics or supervised models.</p>
       </section>
 
     </main>
