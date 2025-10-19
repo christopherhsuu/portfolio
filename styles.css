@@ -91,7 +91,7 @@ body { padding-bottom: 92px; }
   overflow: visible; /* allow visual to extend behind later sections */
   z-index: 2;
 }
-.hero-title { font-size: 2.4rem; margin: 0 0 8px 0; color: var(--text-color); letter-spacing: -0.02em; }
+.hero-title { font-size: 2.4rem; margin: 0 0 20px 0; color: var(--text-color); letter-spacing: -0.02em; }
 .hero-lead { color: var(--muted-text); max-width: 60ch; }
 .hero-hook { font-size: 1.05rem; color: var(--muted-text); margin-top: 6px; font-weight: 600; }
 .hero-intro { margin-top: 10px; color: var(--muted-text); max-width: 58ch; margin-left: auto; margin-right: auto; }
