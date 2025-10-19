@@ -33,31 +33,18 @@
 
 git clone https://github.com/christopherhsuu/statforecast
       <section style="margin-top:28px;">
-        <h2>Overview (for non-experts)</h2>
-        <p class="muted">StatForecast predicts near-term player performance using historical stats and recent trends. It's designed to give simple, explainable forecasts and show the features that drove predictions.</p>
-      </section>
+        <h2>About StatForecast</h2>
+        <p class="muted">StatForecast was built to answer a practical question: given a hitter's recent seasons, what is a realistic, data-driven projection of their next-season offensive performance? The project focuses on trajectory-aware features — lagged seasons, rolling averages, and year-over-year deltas — to capture momentum and reversion effects that a single-season baseline often misses. By predicting multiple offensive metrics at once, the model preserves relationships across targets (for example, how changes in walk rate and contact quality jointly influence OPS).</p>
 
-      <section style="margin-top:18px;">
-        <h2>Who it's for</h2>
-        <p class="muted">Fantasy managers, analysts, or anyone who wants a quick, explainable projection of a player's short-term outlook.</p>
-      </section>
+        <p class="muted">I started by collecting a season-by-season hitters table (a Fangraphs-style CSV). The data pipeline normalizes common column names, converts percent strings into numeric values, filters for players with sufficient plate appearances, and sorts by player and season. Feature engineering is the core of the work: for each stat I create lag1/lag2/lag3 features, three-season rolling means, deltas (this year vs last), average-delta smoothing, longer-term career changes, and age interaction terms that let the model treat improving young players differently from aging veterans. Missing engineered values are handled cleanly — training rows missing required features are dropped, while prediction-time rows are reindexed to the saved feature list and filled with zeros as needed.</p>
 
-      <section style="margin-top:18px;">
-        <h2>Quick start</h2>
-        <ol class="muted">
-          <li>Open the live app.</li>
-          <li>Search a player and pick a forecast horizon (week, month, season).</li>
-          <li>Read the forecast and review the feature importance or recent-trend plots to understand why the model predicts that way.</li>
-        </ol>
-      </section>
+        <p class="muted">For modeling I assemble X/Y matrices and train a multi-output Random Forest (scikit-learn). The model uses a forest per target within a multi-output wrapper so all offensive metrics are predicted in one pass. I use a holdout split and report RMSE as the primary evaluation metric; the training code also saves metadata (feature column order, RMSE, and training/test sizes) so predictions are reproducible and stable. Saving feature column order is a small but important detail: prediction-time code reindexes input rows to the original column order so the model sees features in the same layout used during training.</p>
 
-      <section style="margin-top:18px;">
-        <h2>Inputs &amp; Outputs</h2>
-        <p class="muted"><strong>Inputs:</strong> historical season/game stats and Statcast features. <strong>Outputs:</strong> numeric forecasts for stats (e.g., expected batting average, xwOBA) and visual explanations (feature importance, trend plots).</p>
+        <p class="muted">The Streamlit app provides a practical interface: load or upload a hitters CSV, ensure a model is available (load locally, download via MODEL_URL, or retrain in-app), search for a player, and view historical charts alongside the next-season forecast. Deployment choices focus on usability and reproducibility — large model artifacts are supported via runtime download or Git LFS to avoid shipping binaries in the repo.</p>
 
-      <section style="margin-top:18px;">
-        <h2>Methodology (technical)</h2>
-        <p class="muted">I collected historical player-season and game-level sabermetrics (xwOBA, exit velocity, launch angle, strikeout rate, walk rate) and engineered features for trend, recent-form, and aging. Models compared baseline rates with ridge regression, random forest, XGBoost, and a small neural network; evaluation used time-based cross-validation to avoid leakage.</p>
+        <p class="muted">Key challenges included stabilizing noisy year-to-year stat fluctuations and handling edge cases like rookies and players returning from injury. Trajectory features and rolling aggregates reduce variance from single-season noise, while age interactions encode domain knowledge about how improvement or decline varies with age. For uncertainty, the current heuristic uses tree-ensemble variance; future work includes quantile forests or conformal prediction for principled intervals.</p>
+
+        <p class="muted">StatForecast is a practical baseline for analysts and fantasy managers who want explainable projections and transparent methodology. Future improvements include full cross-validation and hyperparameter tuning, richer Statcast-derived inputs (barrel%, exit velocity), better rookie/injury handling, and more rigorous uncertainty quantification. The app already lets users export results and inspect feature importance, making it a useful starting point for roster analysis or research.</p>
       </section>
 
       <section style="margin-top:18px;">
