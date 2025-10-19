@@ -168,11 +168,24 @@ body { padding-bottom: 92px; }
 .brand { display:flex; align-items:center; gap:10px; }
 
 .project-info { padding:18px; display:flex; flex-direction:column; gap:10px; }
-.project-info h3 { margin:0; color:var(--text-color); font-size:1.075rem; text-align:center; }
+.project-info h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(6,10,14,0.54); /* subtle dark backdrop for legibility */
+  box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+}
 .muted { color:var(--muted-text); margin:0; }
 
 /* card thumbnail and title row: stack vertically and center */
-.project-title-row { display:flex; flex-direction:column-reverse; align-items:center; gap:8px; text-align:center; margin-bottom:12px; }
+.project-title-row { display:flex; flex-direction:column-reverse; align-items:center; gap:8px; text-align:center; margin-bottom:14px; position: relative; z-index: 6; }
 .card-thumb { width:96px; height:64px; object-fit:cover; border-radius:8px; flex-shrink:0; box-shadow: 0 6px 18px rgba(2,6,23,0.24); }
 
 /* card CTA that fades in on hover */
@@ -192,19 +205,6 @@ body { padding-bottom: 92px; }
 .project-grid > .project-card:nth-child(2) { --delay: 0.08s; }
 .project-grid > .project-card:nth-child(3) { --delay: 0.16s; }
 .fade-in { transition-delay: var(--delay); }
-
-/* custom cursor glow */
-.cursor-glow {
-  position: fixed; pointer-events: none; width: 160px; height: 160px; border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(63,140,255,0.18), rgba(63,140,255,0.08) 30%, transparent 60%);
-  transform: translate(-50%, -50%) scale(0.85);
-  mix-blend-mode: screen; z-index: 80; transition: transform 180ms ease, opacity 180ms ease; opacity: 0.95;
-}
-
-/* reduce size on small screens */
-@media (max-width:720px) {
-  .cursor-glow { width: 96px; height: 96px; }
-}
 
 /* make whole card clickable */
 .project-card { cursor:pointer; }

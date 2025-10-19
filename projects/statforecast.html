@@ -75,28 +75,7 @@ git clone https://github.com/christopherhsuu/statforecast
         <p class="muted">Key challenges included noisy single-season signals (addressed with rolling aggregates) and handling rookies/injury return cases. Next steps: cross-validation and hyperparameter search, add Statcast features (exit velocity percentiles, barrel%), and improve uncertainty estimates (quantile forests or conformal methods).</p>
       </section>
 
-      <section style="margin-top:22px;">
-        <h2>Diagnostics &amp; common pitfalls</h2>
-        <p class="muted">Below are frequent sources of error when running or reproducing StatForecast and quick ways to detect and fix them.</p>
-
-        <div style="display:flex; gap:12px; align-items:flex-start; margin-top:12px;">
-          <img src="../images/diag-statforecast.png" alt="diagnostic screenshot" style="width:260px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.5);">
-          <div>
-            <strong>Missing columns / misnamed features</strong>
-            <p class="muted">If the pipeline raises KeyError or ValueError during matrix assembly, inspect `feature_columns` ordering. A small check before training prevents silent misalignment:</p>
-            <pre style="background:rgba(255,255,255,0.02); padding:8px; border-radius:6px; color:var(--muted-text);"># quick sanity check before training
-required = set(feature_columns)
-present = set(df.columns)
-missing = required - present
-if missing:
-    raise ValueError(f"Missing feature columns: {missing}")
-            </pre>
-
-            <strong>Small-sample noise</strong>
-            <p class="muted">Low plate-appearance players can produce extreme deltas. Filter by PA or add a min_samples threshold when aggregating. Use aggregation logs to check sample sizes per player.</p>
-          </div>
-        </div>
-      </section>
+      
 
       <section style="margin-top:18px;">
         <h2>Reproducibility</h2>

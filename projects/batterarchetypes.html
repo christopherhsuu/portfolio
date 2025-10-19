@@ -73,27 +73,7 @@
         <p class="muted">Future work includes adding supervised prediction tasks using archetype features, richer temporal aggregations, unit tests for transformations, and a deployed dashboard for sharing results.</p>
       </section>
 
-      <section style="margin-top:22px;">
-        <h2>Diagnostics &amp; common pitfalls</h2>
-        <p class="muted">Troubleshooting notes for the clustering pipeline and reproducibility tips.</p>
-
-        <div style="display:flex; gap:12px; align-items:flex-start; margin-top:12px;">
-          <img src="../images/diag-batterarchetypes.png" alt="diagnostic screenshot" style="width:260px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.5);">
-          <div>
-            <strong>Circular features mis-handled</strong>
-            <p class="muted">Angles not expanded to sin/cos will cause PCA/clustering artifacts near the wrap point (e.g., 359° vs 1°). Convert angles like this:</p>
-            <pre style="background:rgba(255,255,255,0.02); padding:8px; border-radius:6px; color:var(--muted-text);"># convert angle to sin/cos
-df['angle_rad'] = np.deg2rad(df['launch_angle'])
-df['angle_sin'] = np.sin(df['angle_rad'])
-df['angle_cos'] = np.cos(df['angle_rad'])
-            </pre>
-
-            <strong>Scaling mismatch</strong>
-            <p class="muted">Make sure the scaler used in training is saved and reused at inference time. Saving pipeline artifacts prevents feature drift and column-order bugs.</p>
-          </div>
-        </div>
-      </section>
-
+    
     </main>
 
     <footer class="site-footer">
