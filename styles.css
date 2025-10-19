@@ -168,12 +168,12 @@ body { padding-bottom: 92px; }
 .brand { display:flex; align-items:center; gap:10px; }
 
 .project-info { padding:18px; display:flex; flex-direction:column; gap:10px; }
-.project-info h3 { margin:0; color:var(--text-color); font-size:1.075rem; }
+.project-info h3 { margin:0; color:var(--text-color); font-size:1.075rem; text-align:center; }
 .muted { color:var(--muted-text); margin:0; }
 
-/* card thumbnail and title row */
-.project-title-row { display:flex; align-items:center; gap:12px; }
-.card-thumb { width:72px; height:48px; object-fit:cover; border-radius:8px; flex-shrink:0; box-shadow: 0 6px 18px rgba(2,6,23,0.24); }
+/* card thumbnail and title row: stack vertically and center */
+.project-title-row { display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; }
+.card-thumb { width:96px; height:64px; object-fit:cover; border-radius:8px; flex-shrink:0; box-shadow: 0 6px 18px rgba(2,6,23,0.24); }
 
 /* make whole card clickable */
 .project-card { cursor:pointer; }
