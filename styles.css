@@ -178,14 +178,16 @@ body { padding-bottom: 92px; }
   display: inline-block;
   padding: 6px 12px;
   border-radius: 8px;
-  background: rgba(6,10,14,0.54); /* subtle dark backdrop for legibility */
-  box-shadow: 0 6px 18px rgba(2,6,23,0.45);
-  text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+  background: rgba(6,10,14,0.72); /* slightly stronger backdrop for high contrast */
+  box-shadow: 0 8px 24px rgba(2,6,23,0.55);
+  text-shadow: 0 2px 0 rgba(0,0,0,0.6);
 }
 .muted { color:var(--muted-text); margin:0; }
 
 /* card thumbnail and title row: stack vertically and center */
-.project-title-row { display:flex; flex-direction:column-reverse; align-items:center; gap:8px; text-align:center; margin-bottom:14px; position: relative; z-index: 6; }
+.project-title-row { display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center; margin-bottom:18px; position: relative; z-index: 6; }
+/* ensure the title area doesn't overlap the top of the card */
+.project-info { padding:20px 18px 18px; }
 .card-thumb { width:96px; height:64px; object-fit:cover; border-radius:8px; flex-shrink:0; box-shadow: 0 6px 18px rgba(2,6,23,0.24); }
 
 /* card CTA that fades in on hover */
