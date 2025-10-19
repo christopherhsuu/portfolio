@@ -199,6 +199,13 @@ body { padding-bottom: 92px; }
 .card-cta .arrow { transition: transform 180ms ease; }
 .project-card:hover .card-cta .arrow { transform: translateX(6px); }
 
+/* thumbnail overlay CTA */
+.thumb-overlay { position: absolute; left: 0; right: 0; top: 18px; display:flex; justify-content:center; pointer-events: none; z-index: 7; }
+.thumb-link { pointer-events: auto; opacity: 0; transform: translateY(6px) scale(0.98); transition: opacity 220ms var(--transition), transform 260ms var(--transition); background: linear-gradient(90deg, rgba(47,140,255,0.14), rgba(99,209,255,0.06)); color: var(--accent); padding:8px 14px; border-radius:999px; font-weight:700; box-shadow: 0 8px 30px rgba(15,45,80,0.6); text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
+.project-card:hover .thumb-link, .project-card:focus-within .thumb-link { opacity:1; transform: translateY(0) scale(1); }
+.thumb-link .arrow { transition: transform 160ms ease; }
+.project-card:hover .thumb-link .arrow { transform: translateX(6px); }
+
 /* staggered reveal: give fade-in elements a delay based on index via CSS variable */
 .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 520ms ease, transform 520ms ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
