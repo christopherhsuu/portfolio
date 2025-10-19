@@ -29,8 +29,8 @@
 
     <main>
       <section id="hero" class="hero">
-        <div class="hero-visual">
-          <!-- inline animated SVG: simple pitch trajectories -->
+        <div class="hero-visual" aria-hidden="true">
+          <!-- subtle background visual kept for personality -->
           <svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid slice" class="hero-svg" aria-hidden="true">
             <defs>
               <linearGradient id="hgrad" x1="0" x2="1">
@@ -38,7 +38,6 @@
                 <stop offset="1" stop-color="#63d1ff" stop-opacity="0.7"/>
               </linearGradient>
             </defs>
-            <rect width="1200" height="300" fill="rgba(8,12,18,0.0)" />
             <g class="trajectories" stroke="url(#hgrad)" stroke-width="3" fill="none" stroke-linecap="round">
               <path class="traj t1" d="M40 220 C 200 140, 380 140, 540 80" opacity="0.9" />
               <path class="traj t2" d="M120 240 C 260 160, 420 160, 640 120" opacity="0.75" />
@@ -46,77 +45,101 @@
             </g>
           </svg>
         </div>
+
         <div class="container hero-content">
-          <h1 class="hero-title">Exploring Baseball with Data</h1>
-          <p class="hero-hook">Turning swings and stats into insight.</p>
-          <p class="hero-intro">I use data to make baseball smarter — from predicting pitches to visualizing player tendencies.</p>
+          <h1 class="hero-title">Christopher Hsu — Data & Sabermetrics</h1>
+          <p class="hero-intro">I build interactive apps and models that turn baseball data into practical insight. Below are three featured projects with quick, plain-language explanations and one-click access to demos and code.</p>
         </div>
       </section>
 
       <section id="projects" class="container section">
-        <h2>Projects</h2>
-        <p class="section-intro">Select a project to open the live app or view the repository.</p>
+        <h2>Featured projects</h2>
+        <p class="section-intro">Each project includes: What it does, who it's for, and quick instructions to try it.</p>
 
         <div class="project-grid">
 
-          <article class="project-card accent-blue fade-in">
-            <a class="project-link" href="https://pitchsequence.streamlit.app/" target="_blank" rel="noopener noreferrer">
-                  <figure>
-                    <img src="images/thumb-pitchsequence.svg" alt="Pitch sequence visualization thumbnail" width="800" height="450">
-                    <figcaption class="sr-only">Pitch sequence thumbnail for interactive app</figcaption>
-                  </figure>
-            </a>
+          <article class="project-card accent-blue fade-in" aria-labelledby="proj-pitchseq">
+            <figure>
+              <img src="images/thumb-pitchsequence.svg" alt="Pitch sequence visualization thumbnail" width="800" height="450">
+            </figure>
             <div class="project-info">
-              <h3>Pitch Sequences</h3>
-              <p class="muted">Interactive app that visualizes pitch sequences and swing outcomes. Includes filters by player and game context.</p>
-              <p class="summary">Explore how pitch patterns and sequencing relate to swing timing and contact quality. Useful for scouting and pitch design.</p>
-              <div class="buttons">
-                <a class="btn" href="https://pitchsequence.streamlit.app/" target="_blank" rel="noopener noreferrer">Launch (Live)</a>
-                <a class="btn ghost" href="https://github.com/christopherhsuu/pitchsequence/tree/main" target="_blank" rel="noopener noreferrer">Code</a>
+              <h3 id="proj-pitchseq">Pitch Sequences</h3>
+              <p class="muted">Visualize pitch-by-pitch patterns and batter outcomes to see how sequencing affects swings.</p>
+              <div class="project-details">
+                <strong>Who it's for</strong>
+                <p class="muted">Coaches, analysts, and curious fans who want to understand how pitch order and location influence a hitter's result.</p>
+
+                <strong>Quick try</strong>
+                <ol class="muted">
+                  <li>Open the live demo.</li>
+                  <li>Select a pitcher or batter, then filter by count or game date.</li>
+                  <li>Hover a pitch to see the event and result; use the summary charts to compare sequences.</li>
+                </ol>
+
+                <div class="buttons">
+                  <a class="btn" href="https://pitchsequence.streamlit.app/" target="_blank" rel="noopener noreferrer">Launch demo</a>
+                  <a class="btn ghost" href="https://github.com/christopherhsuu/pitchsequence/tree/main" target="_blank" rel="noopener noreferrer">Code</a>
+                </div>
               </div>
             </div>
           </article>
 
-          <article class="project-card accent-orange fade-in">
-            <a class="project-link" href="/projects/statforecast.html">
-              <figure>
-                <img src="images/thumb-statforecast.svg" alt="StatForecast app thumbnail" width="800" height="450">
-                <figcaption class="sr-only">StatForecast thumbnail showing predicted player stats</figcaption>
-              </figure>
-            </a>
+          <article class="project-card accent-orange fade-in" aria-labelledby="proj-statforecast">
+            <figure>
+              <img src="images/thumb-statforecast.svg" alt="StatForecast app thumbnail" width="800" height="450">
+            </figure>
             <div class="project-info">
-              <h3>StatForecast</h3>
-              <p class="muted">A forecasting tool using historical sabermetrics and machine learning to estimate future player performance.</p>
-              <p class="summary">Models and features designed to predict short-term player value and identify breakout candidates.</p>
-              <div class="buttons">
-                <a class="btn" href="https://statforecast.streamlit.app" target="_blank" rel="noopener noreferrer">Launch (Live)</a>
-                <a class="btn ghost" href="https://github.com/christopherhsuu/statforecast" target="_blank" rel="noopener noreferrer">Code</a>
+              <h3 id="proj-statforecast">StatForecast</h3>
+              <p class="muted">A forecasting toolkit that estimates short-term player performance using historical stats and engineered features.</p>
+
+              <div class="project-details">
+                <strong>Who it's for</strong>
+                <p class="muted">Fantasy players, analysts, and front-office staff who need quick projections and explanations of why a player may rise or fall.</p>
+
+                <strong>Quick try</strong>
+                <ol class="muted">
+                  <li>Open the live app.</li>
+                  <li>Search for a player and choose a forecast horizon (next week / next month / season).</li>
+                  <li>Review feature importance and recent-trend charts to see the model's reasoning.</li>
+                </ol>
+
+                <div class="buttons">
+                  <a class="btn" href="https://statforecast.streamlit.app" target="_blank" rel="noopener noreferrer">Launch demo</a>
+                  <a class="btn ghost" href="https://github.com/christopherhsuu/statforecast" target="_blank" rel="noopener noreferrer">Code</a>
+                </div>
               </div>
             </div>
           </article>
 
-          <article class="project-card accent-green fade-in">
-            <a class="project-link" href="/projects/batterarchetypes.html">
-              <figure>
-                <img src="images/thumb-batterarchetypes.svg" alt="Batter Archetypes app thumbnail" width="800" height="450">
-                <figcaption class="sr-only">Batter Archetypes thumbnail showing hitter archetype visualizations</figcaption>
-              </figure>
-            </a>
+          <article class="project-card accent-green fade-in" aria-labelledby="proj-batterarch">
+            <figure>
+              <img src="images/thumb-batterarchetypes.svg" alt="Batter Archetypes app thumbnail" width="800" height="450">
+            </figure>
             <div class="project-info">
-              <h3>Batter Archetypes</h3>
-              <p class="muted">Interactive app exploring hitter archetypes and profiles using data-driven clustering and visualizations.</p>
-              <p class="summary">Identify player archetypes and how approach adjustments can shift outcomes across pitch types.</p>
-              <div class="buttons">
-                <a class="btn" href="https://hitterarchetypes.streamlit.app" target="_blank" rel="noopener noreferrer">Launch (Live)</a>
-                <a class="btn ghost" href="https://github.com/christopherhsuu/hitterarchetypes" target="_blank" rel="noopener noreferrer">Code</a>
+              <h3 id="proj-batterarch">Batter Archetypes</h3>
+              <p class="muted">Interactive exploration of hitter archetypes (power, contact, speed). See how players compare within archetypes.</p>
+
+              <div class="project-details">
+                <strong>Who it's for</strong>
+                <p class="muted">Scouts and analysts who want to categorize hitters and test how approach changes could affect outcomes.</p>
+
+                <strong>Quick try</strong>
+                <ol class="muted">
+                  <li>Open the demo and search a player's name.</li>
+                  <li>View the player's archetype membership and centroid profile.</li>
+                  <li>Adjust filters to see how the archetype map changes over seasons.</li>
+                </ol>
+
+                <div class="buttons">
+                  <a class="btn" href="https://hitterarchetypes.streamlit.app" target="_blank" rel="noopener noreferrer">Launch demo</a>
+                  <a class="btn ghost" href="https://github.com/christopherhsuu/hitterarchetypes" target="_blank" rel="noopener noreferrer">Code</a>
+                </div>
               </div>
             </div>
           </article>
 
         </div>
       </section>
-
-      <!-- About moved to separate page -->
     </main>
 
     <div id="contact-bar" class="contact-bar" role="contentinfo">

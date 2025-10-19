@@ -66,6 +66,12 @@ body { padding-bottom: 92px; }
 .section h2 { font-size: 1.6rem; margin:0 0 12px 0; color:var(--text-color); }
 .section-intro { color:var(--muted-text); margin-bottom:18px; }
 
+/* Improve project page typography (headings, lists) */
+.container h1 { font-size: 2rem; margin: 8px 0 12px 0; color: var(--text-color); }
+.container h2 { font-size: 1.25rem; margin: 14px 0 8px 0; color: var(--text-color); }
+.container ol, .container ul { color: var(--muted-text); margin-left: 18px; }
+.project-details strong { display:block; margin-top:8px; color: var(--text-color); }
+
 .hero {
   /* make the hero occupy a substantial portion of the viewport and center content */
   min-height: 62vh;

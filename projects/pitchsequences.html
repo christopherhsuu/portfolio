@@ -32,23 +32,31 @@
       </div>
 
       <section style="margin-top:28px;">
-        <h2>Methodology</h2>
-        <p class="muted">I parsed pitch-by-pitch data from Statcast, normalized pitch locations, and labeled events (swing, miss, contact). I built a sequence visualization with interactive filters (player, pitch type, count) and aggregated summaries.</p>
+        <h2>Overview (for non-experts)</h2>
+        <p class="muted">This project shows the sequence of pitches thrown in an at-bat and the result of each pitch (swing, miss, contact). It's like replaying the order of pitches so you can see patterns and how batters react.</p>
       </section>
 
       <section style="margin-top:18px;">
-        <h2>Findings</h2>
-        <p class="muted">Common sequencing patterns emerge by pitcher and matchup: effective pitchers use change-of-pace pitches to disrupt timing, while location diversity correlates with lower slugging against. Visual exploration helped identify several patterns worth deeper modeling.</p>
+        <h2>Who it's for</h2>
+        <p class="muted">Coaches and fans who want to understand how pitch order, location, and type change a batter's chances to swing or make contact.</p>
       </section>
 
       <section style="margin-top:18px;">
-        <h2>How I built it</h2>
+        <h2>Quick start</h2>
         <ol class="muted">
-          <li>Data ingest: Statcast CSVs via the MLB API.</li>
-          <li>Cleaning: normalized coordinates, removed incomplete pitches, and merged play-level context.</li>
-          <li>Visualization: D3 for custom pitch maps inside a Streamlit app.</li>
-          <li>Export: packaged as a Streamlit app and deployed to Streamlit Cloud.</li>
+          <li>Launch the demo.</li>
+          <li>Search for a pitcher or batter, then pick a game or date range.</li>
+          <li>Hover individual pitches to view details (pitch type, speed, result) and use filters to compare situations.</li>
         </ol>
+      </section>
+
+      <section style="margin-top:18px;">
+        <h2>Inputs &amp; Outputs</h2>
+        <p class="muted"><strong>Inputs:</strong> pitch-by-pitch event data (location, type, result). <strong>Outputs:</strong> interactive sequence plots, aggregated summaries by count and zone, and exportable CSVs for further analysis.</p>
+
+      <section style="margin-top:18px;">
+        <h2>Methodology (technical)</h2>
+        <p class="muted">I parsed pitch-by-pitch data from Statcast, normalized pitch locations, and labeled events (swing, miss, contact). I built a sequence visualization with interactive filters (player, pitch type, count) and aggregated summaries. Visualization is implemented with D3 inside Streamlit for interactivity.</p>
       </section>
 
     </main>

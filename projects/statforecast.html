@@ -31,33 +31,42 @@
         <a class="btn ghost" href="https://github.com/christopherhsuu/statforecast" target="_blank" rel="noopener noreferrer">Code</a>
       </div>
 
+git clone https://github.com/christopherhsuu/statforecast
       <section style="margin-top:28px;">
-        <h2>Methodology</h2>
-        <p class="muted">I collected historical player-season and game-level sabermetrics (xwOBA, exit velocity, launch angle, strikeout rate, walk rate) and engineered features for trend, recent-form, and aging. I compared baseline baserate models with machine learning approaches.</p>
+        <h2>Overview (for non-experts)</h2>
+        <p class="muted">StatForecast predicts near-term player performance using historical stats and recent trends. It's designed to give simple, explainable forecasts and show the features that drove predictions.</p>
       </section>
 
       <section style="margin-top:18px;">
-        <h2>Data</h2>
-        <p class="muted">Data sources: Statcast CSV exports, Lahman for historical context, and play-by-play event datasets. I cleaned and aggregated to per-player seasonal summaries and created rolling windows for recent performance.</p>
+        <h2>Who it's for</h2>
+        <p class="muted">Fantasy managers, analysts, or anyone who wants a quick, explainable projection of a player's short-term outlook.</p>
       </section>
 
       <section style="margin-top:18px;">
-        <h2>Models</h2>
-        <p class="muted">I trained several models: ridge regression, random forest, XGBoost, and a small feed-forward neural network. Models were evaluated with cross-validation on time-based splits to avoid leakage.</p>
+        <h2>Quick start</h2>
+        <ol class="muted">
+          <li>Open the live app.</li>
+          <li>Search a player and pick a forecast horizon (week, month, season).</li>
+          <li>Read the forecast and review the feature importance or recent-trend plots to understand why the model predicts that way.</li>
+        </ol>
       </section>
 
       <section style="margin-top:18px;">
-        <h2>Findings</h2>
-        <p class="muted">Tree-based models with careful feature engineering outperformed linear baselines on mean absolute error for seasonal stat forecasts. Important features included age-adjusted plate appearances, recent month performance, and exit velocity percentiles.</p>
+        <h2>Inputs &amp; Outputs</h2>
+        <p class="muted"><strong>Inputs:</strong> historical season/game stats and Statcast features. <strong>Outputs:</strong> numeric forecasts for stats (e.g., expected batting average, xwOBA) and visual explanations (feature importance, trend plots).</p>
+
+      <section style="margin-top:18px;">
+        <h2>Methodology (technical)</h2>
+        <p class="muted">I collected historical player-season and game-level sabermetrics (xwOBA, exit velocity, launch angle, strikeout rate, walk rate) and engineered features for trend, recent-form, and aging. Models compared baseline rates with ridge regression, random forest, XGBoost, and a small neural network; evaluation used time-based cross-validation to avoid leakage.</p>
       </section>
 
       <section style="margin-top:18px;">
         <h2>Reproducibility</h2>
         <pre style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px; color:var(--muted-text);">
-# clone
+# clone the repository
 git clone https://github.com/christopherhsuu/statforecast
 cd statforecast
-# create and activate virtualenv, then install
+# create and activate a virtualenv, then install
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt

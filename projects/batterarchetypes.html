@@ -32,21 +32,34 @@
       </div>
 
       <section style="margin-top:28px;">
-        <h2>Methodology</h2>
-        <p class="muted">I aggregated seasonal batting metrics and selected features (ISO, K%, BB%, Sprint Speed, exit velocity percentiles). After scaling, I applied k-means and silhouette analysis to choose cluster counts and produced archetype centroids for interpretation.</p>
+        <h2>Overview (for non-experts)</h2>
+        <p class="muted">This project groups hitters into "archetypes" so you can compare players with similar profiles. Think of archetypes as labels like "Power Hitter" or "Contact Hitter" that summarize a player's typical strengths.</p>
       </section>
 
       <section style="margin-top:18px;">
-        <h2>Findings</h2>
-        <p class="muted">The clusters reveal intuitive groups: power hitters with high ISO and exit velocity, contact specialists with low K% and high batting average, and speed-oriented hitters. The visualization helps scouting and lineup construction experiments.</p>
+        <h2>Who it's for</h2>
+        <p class="muted">Anyone curious about how hitters compare: coaches, fantasy players, or newcomers who want an easy way to see which players share similar skills.</p>
       </section>
 
       <section style="margin-top:18px;">
-        <h2>How I built it</h2>
+        <h2>Quick start</h2>
+        <ol class="muted">
+          <li>Open the live demo.</li>
+          <li>Type a player's name into the search box to find their archetype.</li>
+          <li>Click the archetype centroid to see the typical stat profile for that group.</li>
+        </ol>
+      </section>
+
+      <section style="margin-top:18px;">
+        <h2>Inputs &amp; Outputs</h2>
+        <p class="muted"><strong>Inputs:</strong> seasonal batting metrics and Statcast features (e.g., ISO, strikeout rate, exit velocity). <strong>Outputs:</strong> archetype assignment for each player and centroid profiles that summarize each archetype.</p>
+
+      <section style="margin-top:18px;">
+        <h2>How I built it (technical)</h2>
         <ol class="muted">
           <li>Data ingest: batting metrics + Statcast for speed and exit velocity.</li>
           <li>Feature engineering: percentiles and rate metrics; imputed missing values for players with limited playing time.</li>
-          <li>Clustering: k-means and silhouette analysis; centroid visualization.</li>
+          <li>Clustering: standardized features, ran k-means, inspected silhouette scores and centroid stability.</li>
           <li>Deployment: Streamlit app to explore clusters and player membership.</li>
         </ol>
       </section>
