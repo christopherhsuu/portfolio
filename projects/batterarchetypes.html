@@ -32,18 +32,45 @@
       </div>
 
       <section style="margin-top:28px;">
-        <h2>About Hitter Archetypes</h2>
-        <p class="muted">Hitter Archetypes is a clustering and visualization project that groups MLB hitters into meaningful profiles using Statcast and tracking-derived features. The goal is to combine modern tracking metrics (exit velocity, launch angle, bat speed, intercept offsets) with traditional contact and power statistics to reveal intuitive player archetypes — for example, high-exit-velocity power hitters, precise contact specialists, or speed-first hitters.</p>
+        <h2>Purpose</h2>
+        <p class="muted">Hitter Archetypes clusters MLB hitters into interpretable profiles using Statcast and tracking-derived features. The project helps reveal player types — e.g., power-first, contact-oriented, speed profiles — using transparent feature engineering and reproducible clustering.</p>
 
-        <p class="muted">The pipeline begins by aggregating per-player features from pitch- and swing-level data. Aggregation scripts compute descriptive statistics (mean, median, p95) and sample-size metrics such as `n_swings`. Preprocessing handles missing values, winsorizes extreme percentiles, and expands circular angle variables into sin/cos components. These transforms stabilize downstream PCA and clustering and avoid artifacts from wrap-around angle values.</p>
+        <h2>Quick start</h2>
+        <ol>
+          <li>Install dependencies and ensure `data/player_archetypes.csv` is present.</li>
+          <li>Run the Streamlit app: <code>streamlit run app.py</code> to open the interactive explorer.</li>
+          <li>Optionally run the clustering script to recompute clusters with different `k` values.</li>
+        </ol>
 
-        <p class="muted">Clustering follows a standard, reproducible flow: select diagnostic features, preprocess (angle expansion, log1p for counts, winsorization, robust scaling), optionally reduce dimensionality with PCA for visualization, and run KMeans (the repo examples use k=5). The code exports cluster assignments and per-cluster CSVs for downstream analysis and saves transformation metadata (scalers, PCA components) so new players can be assigned to clusters consistently.</p>
+        <h2>Data preparation (what I did)</h2>
+        <ol>
+          <li>Collected raw Statcast/swing-level CSVs and stored them in `data/raw/`.</li>
+          <li>Aggregated per-player metrics (mean, median, p95) into `data/player_archetypes.csv` using `scripts/cluster_archetypes.py`.</li>
+          <li>Enriched mappings with `data/raw/unique_batters_with_names.csv` when available to provide user-friendly names.</li>
+        </ol>
 
-        <p class="muted">The Streamlit showcase is the user-facing piece: it loads the aggregated `data/player_archetypes.csv`, merges optional name mappings, and renders an interactive PCA scatter colored by cluster. Users can hover to inspect players, view centroid heatmaps, and read plain-English summaries generated from z-scored centroid values. The app also supports searching for a player and comparing that player's features against the cluster mean with special handling for circular features.</p>
+        <h2>Feature engineering</h2>
+        <ol>
+          <li>Computed power/contact metrics (launch speed, pct_hard_hit) and swing mechanics (bat speed, swing length).</li>
+          <li>Converted angle features to sin/cos pairs to avoid wrap-around issues.</li>
+          <li>Log-transformed count-like columns and winsorized at the 1st/99th percentiles; used RobustScaler for final scaling.</li>
+        </ol>
 
-        <p class="muted">Practical considerations include choosing stable features, filtering by sample size to avoid small-sample artifacts, and fixing cluster `random_state` for reproducibility. Diagnostic checks (centroid heatmaps, representative players, silhouette scores) guide labeling of archetypes and tuning of k. Future work includes supervised prediction tasks using these archetype features, richer temporal aggregations, and a hosted interactive dashboard with server-side cluster assignment.</p>
+        <h2>Clustering pipeline</h2>
+        <ol>
+          <li>Select features and preprocess (angle expansion, log1p, winsorize, scale).</li>
+          <li>Optionally apply PCA for visualization (2 components).</li>
+          <li>Run KMeans (example used k=5) with fixed random_state and export per-cluster CSVs.</li>
+        </ol>
 
-        <p class="muted">Hitter Archetypes is useful for scouts, analysts, and anyone who wants to categorize hitters in a reproducible, explainable way. The repo includes scripts, notebooks, and utilities to reproduce the clustering pipeline and to extend the analysis with additional tracking metrics or supervised models.</p>
+        <h2>Evaluation &amp; diagnostics</h2>
+        <p class="muted">Inspect centroid heatmaps, representative players, and PCA scatter plots. Use silhouette scores or Davies-Bouldin index as quantitative checks and refine features/sampling thresholds accordingly.</p>
+
+        <h2>App usage</h2>
+        <p class="muted">`app.py` renders an interactive PCA scatter, centroid heatmaps, and generated plain-English cluster summaries. Search for players by name to inspect deviations from cluster centroids and export cluster CSVs for downstream work.</p>
+
+        <h2>Next steps</h2>
+        <p class="muted">Future work includes adding supervised prediction tasks using archetype features, richer temporal aggregations, unit tests for transformations, and a deployed dashboard for sharing results.</p>
       </section>
 
     </main>
