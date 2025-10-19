@@ -64,6 +64,7 @@
                 <img class="card-thumb" src="images/thumb-pitchsequence.svg" alt="PitchSequence thumbnail">
                 <h3 id="proj-pitchseq">Pitch Sequences</h3>
               </div>
+              <div class="card-cta">View demo <span class="arrow">→</span></div>
               <p class="muted">Recommends next pitches and ranks candidates using play-level run-value modeling and batter-specific matchup stats. Built for coaches and analysts who want a practical, explainable sequencing tool.</p>
               <div class="buttons">
                 <a class="btn" href="https://pitchsequence.streamlit.app/" target="_blank" rel="noopener noreferrer">Launch demo</a>
@@ -78,6 +79,7 @@
                 <img class="card-thumb" src="images/thumb-statforecast.svg" alt="StatForecast thumbnail">
                 <h3 id="proj-statforecast">StatForecast</h3>
               </div>
+              <div class="card-cta">View demo <span class="arrow">→</span></div>
               <p class="muted">Predicts next-season hitting stats using multi-year trends and ensemble models — built for analysts and fantasy players who want quick, explainable projections.</p>
               <div class="buttons">
                 <a class="btn" href="https://statforecast.streamlit.app" target="_blank" rel="noopener noreferrer">Launch demo</a>
@@ -92,6 +94,7 @@
                 <img class="card-thumb" src="images/thumb-batterarchetypes.svg" alt="Batter Archetypes thumbnail">
                 <h3 id="proj-batterarch">Batter Archetypes</h3>
               </div>
+              <div class="card-cta">View demo <span class="arrow">→</span></div>
               <p class="muted">Clusters hitters into data-driven archetypes (power, contact, speed) using Statcast and tracking features — useful for scouting and player comparison.</p>
               <div class="buttons">
                 <a class="btn" href="https://hitterarchetypes.streamlit.app" target="_blank" rel="noopener noreferrer">Launch demo</a>
@@ -182,6 +185,26 @@
               window.location.href = url;
             }
           });
+        });
+        // small staggered reveal control: add 'visible' with slight delays
+        document.querySelectorAll('.project-grid > .project-card').forEach((card, i)=>{
+          card.style.setProperty('--delay', (i * 0.06) + 's');
+        });
+
+        // add a subtle cursor glow element
+        const glow = document.createElement('div');
+        glow.className = 'cursor-glow';
+        document.body.appendChild(glow);
+        let lastMove = 0;
+        window.addEventListener('mousemove', (e)=>{
+          const now = Date.now();
+          // throttle to ~60fps but allow burst updates
+          if(now - lastMove < 8) return; lastMove = now;
+          glow.style.left = e.clientX + 'px';
+          glow.style.top = e.clientY + 'px';
+          // slightly scale up when over interactive elements
+          const overInteractive = e.target.closest && e.target.closest('a,button');
+          glow.style.transform = overInteractive ? 'translate(-50%, -50%) scale(1.05)' : 'translate(-50%, -50%) scale(0.85)';
         });
       })();
     </script>

@@ -72,6 +72,26 @@
         <p class="muted">Name normalization, sparse batter-pitchtype exposures, and ensuring robust recommendations are primary challenges. The repo mitigates these with name-mapping, minimum exposure thresholds, and blending heuristics. Future work: richer batter features, ensemble stacking, periodic retraining, and a dashboard for evaluation of recommended sequences on holdout data.</p>
       </section>
 
+      <section style="margin-top:22px;">
+        <h2>Diagnostics &amp; common pitfalls</h2>
+        <p class="muted">Common issues when running PitchSequence and how to quickly identify them.</p>
+
+        <div style="display:flex; gap:12px; align-items:flex-start; margin-top:12px;">
+          <img src="../images/diag-pitchsequence.png" alt="diagnostic screenshot" style="width:260px; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.5);">
+          <div>
+            <strong>Name normalization mismatches</strong>
+            <p class="muted">If recommendations look odd for a given batter, check name mapping joins. Use an inner-join audit to find unmatched keys:</p>
+            <pre style="background:rgba(255,255,255,0.02); padding:8px; border-radius:6px; color:var(--muted-text);"># audit unmatched names
+unmatched = raw_df[~raw_df['batter_name'].isin(name_map['clean_name'])]['batter_name'].unique()
+print('Unmatched batter names sample:', unmatched[:10])
+            </pre>
+
+            <strong>Sparse exposure</strong>
+            <p class="muted">Low counts for a batter-pitchtype pair can make run-value estimates unstable. Consider blending with league averages or applying a shrinkage estimator.</p>
+          </div>
+        </div>
+      </section>
+
     </main>
 
     <footer class="site-footer">
