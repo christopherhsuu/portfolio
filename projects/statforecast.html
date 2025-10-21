@@ -22,7 +22,9 @@
       </div>
     </header>
 
+git clone https://github.com/christopherhsuu/statforecast
   <main class="section page-inner" style="max-width:1400px; margin:32px auto 0 auto; background:#16161a; border-radius:18px; box-shadow:0 4px 32px 0 rgba(0,0,0,0.12);">
+    <div class="project-container">
       <h1>StatForecast</h1>
       <p class="muted">A forecasting tool that uses historical sabermetrics and machine learning to estimate future player performance. This page links to the live app and the code repository.</p>
 
@@ -31,7 +33,6 @@
         <a class="btn ghost" href="https://github.com/christopherhsuu/statforecast" target="_blank" rel="noopener noreferrer">Code</a>
       </div>
 
-git clone https://github.com/christopherhsuu/statforecast
       <section style="margin-top:28px;">
         <h2>Purpose</h2>
         <p class="muted">StatForecast predicts next-season offensive statistics for MLB hitters. The goal is to produce explainable, trajectory-aware forecasts that use multi-year features (lags, rolling means, and deltas) rather than a single-season snapshot.</p>
@@ -75,8 +76,6 @@ git clone https://github.com/christopherhsuu/statforecast
         <p class="muted">Key challenges included noisy single-season signals (addressed with rolling aggregates) and handling rookies/injury return cases. Next steps: cross-validation and hyperparameter search, add Statcast features (exit velocity percentiles, barrel%), and improve uncertainty estimates (quantile forests or conformal methods).</p>
       </section>
 
-      
-
       <section style="margin-top:18px;">
         <h2>Reproducibility</h2>
         <pre style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px; color:var(--muted-text);">
@@ -91,6 +90,7 @@ pip install -r requirements.txt
 streamlit run app.py
         </pre>
       </section>
+    </div>
     </main>
 
     <footer class="site-footer">
