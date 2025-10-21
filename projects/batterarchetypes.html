@@ -87,42 +87,21 @@
         <hr class="my-4 border-gray-700">
 
         <h3 class="font-bold text-xl mt-6 mb-2">2. Feature Engineering</h3>
-        <table class="min-w-full text-sm border border-gray-700 mb-4">
-          <thead>
-            <tr class="bg-gray-800">
-              <th class="px-4 py-2 text-left font-semibold">Category</th>
-              <th class="px-4 py-2 text-left font-semibold">Example Features</th>
-              <th class="px-4 py-2 text-left font-semibold">Purpose</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="bg-gray-900">
-              <td class="px-4 py-2">Power &amp; Contact</td>
-              <td class="px-4 py-2"><code>launch_speed_mean</code>, <code>pct_hard_hit</code></td>
-              <td class="px-4 py-2">Quantify exit velocity and contact strength</td>
-            </tr>
-            <tr class="bg-gray-800">
-              <td class="px-4 py-2">Swing Mechanics</td>
-              <td class="px-4 py-2"><code>bat_speed_mean</code>, <code>swing_length_mean</code>, <code>swing_path_tilt_mean</code></td>
-              <td class="px-4 py-2">Capture bat speed and swing geometry</td>
-            </tr>
-            <tr class="bg-gray-900">
-              <td class="px-4 py-2">Timing &amp; Intercept</td>
-              <td class="px-4 py-2"><code>intercept_ball_minus_batter_pos_x_inches_mean</code>, <code>intercept_ball_minus_batter_pos_y_inches_mean</code></td>
-              <td class="px-4 py-2">Model timing offset and impact zone alignment</td>
-            </tr>
-            <tr class="bg-gray-800">
-              <td class="px-4 py-2">Angles</td>
-              <td class="px-4 py-2"><code>launch_angle_mean</code>, <code>attack_angle_mean</code>, <code>attack_direction_mean</code></td>
-              <td class="px-4 py-2">Capture directional tendencies (converted to sin/cos)</td>
-            </tr>
-            <tr class="bg-gray-900">
-              <td class="px-4 py-2">Sample Size</td>
-              <td class="px-4 py-2"><code>n_swings</code></td>
-              <td class="px-4 py-2">Used for filtering and log transforms</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="mb-4">
+          <h4 class="font-semibold text-lg mt-4 mb-2">Full Feature List</h4>
+          <ul class="list-disc ml-6 space-y-1">
+            <li><code>whiff_rate</code> (shrinkage-smoothed whiff / swing-and-miss rate)</li>
+            <li><code>launch_speed_mean</code>, <code>launch_speed_std</code>, <code>launch_speed_median</code>, <code>launch_speed_p95</code></li>
+            <li><code>pct_hard_hit</code> (proportion of batted balls above the hard-hit threshold)</li>
+            <li><code>launch_angle_mean</code>, <code>launch_angle_std</code></li>
+            <li><code>gb_pct</code>, <code>ld_pct</code>, <code>fb_pct</code> (ground/line/fly percent bins derived from launch angles)</li>
+            <li><code>bat_speed_mean</code>, <code>bat_speed_std</code></li>
+            <li><code>contact_rate</code> (per-player contact fraction — computed but typically removed before clustering)</li>
+            <li><code>swing_length_mean</code>, <code>attack_angle_mean</code>, <code>swing_path_tilt_mean</code></li>
+            <li><code>intercept_ball_minus_batter_pos_x_inches_mean</code>, <code>intercept_ball_minus_batter_pos_y_inches_mean</code> (timing/offset measures)</li>
+            <li><code>attack_direction_mean</code> (circular mean in degrees)</li>
+          </ul>
+        </div>
         <ul class="list-disc ml-6 space-y-2">
           <li><strong>Transformations:</strong>
             <ul class="list-disc ml-6 space-y-1">
