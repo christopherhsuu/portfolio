@@ -246,56 +246,6 @@
           <li>Streamlit UI modularization (with <code>utils/</code> helpers) keeps the front-end maintainable.</li>
         </ul>
       </section>
-
-      <div style="margin-top:20px; display:flex; gap:12px; align-items:center;">
-        <a class="launch-big" href="https://hitterarchetypes.streamlit.app" target="_blank" rel="noopener noreferrer">Launch (Live)</a>
-        <a class="btn ghost" href="https://github.com/christopherhsuu/hitterarchetypes" target="_blank" rel="noopener noreferrer">Code</a>
-      </div>
-
-      <section style="margin-top:28px;">
-        <h2>Purpose</h2>
-        <p class="muted">Hitter Archetypes clusters MLB hitters into interpretable profiles using Statcast and tracking-derived features. The project helps reveal player types — e.g., power-first, contact-oriented, speed profiles — using transparent feature engineering and reproducible clustering.</p>
-
-        <h2>Quick start</h2>
-        <ol>
-          <li>Install dependencies and ensure `data/player_archetypes.csv` is present.</li>
-          <li>Run the Streamlit app: <code>streamlit run app.py</code> to open the interactive explorer.</li>
-          <li>Optionally run the clustering script to recompute clusters with different `k` values.</li>
-        </ol>
-
-        <h2>Data preparation (what I did)</h2>
-        <ol>
-          <li>Stored raw Statcast swing-level CSVs in <code>data/raw/</code>.</li>
-          <li>Aggregated per-player metrics (mean, median, p95) into <code>data/player_archetypes.csv</code> using <code>scripts/cluster_archetypes.py</code>.</li>
-          <li>Enriched player mappings with <code>data/raw/unique_batters_with_names.csv</code> for readable names.</li>
-        </ol>
-
-        <h2>Feature engineering</h2>
-        <ol>
-          <li>Computed power/contact metrics (launch speed, pct_hard_hit) and swing mechanics (bat speed, swing length).</li>
-          <li>Transformed angle features to sin/cos pairs to avoid wrap-around artifacts.</li>
-          <li>Log-transformed count columns, winsorized at 1st/99th percentiles, and scaled with RobustScaler.</li>
-        </ol>
-
-        <h2>Clustering pipeline</h2>
-        <ol>
-          <li>Select features and preprocess (angle expansion, log1p, winsorize, scale).</li>
-          <li>Optionally apply PCA for visualization (2 components).</li>
-          <li>Run KMeans (example used k=5) with fixed random_state and export per-cluster CSVs.</li>
-        </ol>
-
-        <h2>Evaluation &amp; diagnostics</h2>
-        <p class="muted">Inspect centroid heatmaps, representative players, and PCA scatter plots. Use silhouette scores or Davies-Bouldin index as quantitative checks and refine features/sampling thresholds accordingly.</p>
-
-        <h2>App usage</h2>
-        <p class="muted">`app.py` renders an interactive PCA scatter, centroid heatmaps, and generated plain-English cluster summaries. Search for players by name to inspect deviations from cluster centroids and export cluster CSVs for downstream work.</p>
-
-        <h2>Next steps</h2>
-        <p class="muted">Future work includes adding supervised prediction tasks using archetype features, richer temporal aggregations, unit tests for transformations, and a deployed dashboard for sharing results.</p>
-      </section>
-    </div>
-    </main>
-
     <footer class="site-footer">
       <div class="container">
         <p class="muted">© 2025 Christopher Hsu</p>
