@@ -1,3 +1,24 @@
+    <div class="project-container">
+      <h1>Batter Archetypes</h1>
+      <p class="muted">An exploratory clustering of hitters to identify archetypes (power/speed/contact/etc.) and visualize archetype profiles.</p>
+
+      <div class="button-row">
+        <a class="launch-big" href="https://hitterarchetypes.streamlit.app" target="_blank" rel="noopener noreferrer">Launch (Live)</a>
+        <a class="btn ghost" href="https://github.com/christopherhsuu/hitterarchetypes" target="_blank" rel="noopener noreferrer">Code</a>
+      </div>
+
+      <section style="margin-top:28px;">
+        <h2>Purpose</h2>
+        <p class="muted">Hitter Archetypes clusters MLB hitters into interpretable profiles using Statcast and tracking-derived features. The project helps reveal player types — e.g., power-first, contact-oriented, speed profiles — using transparent feature engineering and reproducible clustering.</p>
+
+        <h2>Quick start</h2>
+        <ol>
+          <li>Install dependencies and verify <code>data/player_archetypes.csv</code> exists.</li>
+          <li>Run <code>streamlit run app.py</code> to launch the interactive archetype explorer.</li>
+          <li>Optionally run <code>scripts/cluster_archetypes.py</code> to recompute clusters with different <code>k</code> values.</li>
+        </ol>
+      </section>
+    </div>
 <!doctype html>
 <html lang="en">
   <head>
@@ -45,16 +66,16 @@
 
         <h2>Data preparation (what I did)</h2>
         <ol>
-          <li>Collected raw Statcast/swing-level CSVs and stored them in `data/raw/`.</li>
-          <li>Aggregated per-player metrics (mean, median, p95) into `data/player_archetypes.csv` using `scripts/cluster_archetypes.py`.</li>
-          <li>Enriched mappings with `data/raw/unique_batters_with_names.csv` when available to provide user-friendly names.</li>
+          <li>Stored raw Statcast swing-level CSVs in <code>data/raw/</code>.</li>
+          <li>Aggregated per-player metrics (mean, median, p95) into <code>data/player_archetypes.csv</code> using <code>scripts/cluster_archetypes.py</code>.</li>
+          <li>Enriched player mappings with <code>data/raw/unique_batters_with_names.csv</code> for readable names.</li>
         </ol>
 
         <h2>Feature engineering</h2>
         <ol>
           <li>Computed power/contact metrics (launch speed, pct_hard_hit) and swing mechanics (bat speed, swing length).</li>
-          <li>Converted angle features to sin/cos pairs to avoid wrap-around issues.</li>
-          <li>Log-transformed count-like columns and winsorized at the 1st/99th percentiles; used RobustScaler for final scaling.</li>
+          <li>Transformed angle features to sin/cos pairs to avoid wrap-around artifacts.</li>
+          <li>Log-transformed count columns, winsorized at 1st/99th percentiles, and scaled with RobustScaler.</li>
         </ol>
 
         <h2>Clustering pipeline</h2>

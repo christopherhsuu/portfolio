@@ -1,3 +1,27 @@
+.project-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 3rem 4rem;
+}
+
+@media (max-width: 900px) {
+  .project-container {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .project-container {
+    padding: 1rem 0.5rem;
+  }
+}
+
+.button-row {
+  margin-bottom: 2.5rem;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
 /* About page hero section */
 .about-hero {
   text-align: center;
