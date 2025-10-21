@@ -1,11 +1,11 @@
 /* ---------- Global Styles (light, high-contrast) ---------- */
 :root {
-  --bg-color: #0b0f16; /* page background */
-  --surface: #0f1720; /* surface panels */
-  --card-bg: #0f1726; /* cards */
-  --accent: #2f8cff; /* primary blue */
-  --accent-grad-start: #2f8cff;
-  --accent-grad-end: #63d1ff;
+  --bg-color: #232946; /* page background: deep blue */
+  --surface: #16161a; /* surface panels: dark gray */
+  --card-bg: #232946; /* cards: match background for unity */
+  --accent: #eebbc3; /* accent: soft pink */
+  --accent-grad-start: #eebbc3;
+  --accent-grad-end: #b8c1ec;
   --text-color: #e6eef6; /* light text */
   --muted-text: #98a3b3; /* muted */
   --font-main: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
@@ -26,9 +26,17 @@ body {
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   font-size: 16px;
+  padding-bottom: 92px;
 }
-/* keep page content clear of the fixed contact bar */
-body { padding-bottom: 92px; }
+
+main {
+  background: #16161a;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.12);
+  margin: 32px auto 0 auto;
+  padding: 32px 0 0 0;
+  max-width: 1100px;
+}
 
 /* ---------- Header ---------- */
 /* ---------- Header ---------- */
