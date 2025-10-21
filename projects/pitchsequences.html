@@ -491,55 +491,6 @@
           <li>Streamlit UI modularization (with <code>utils/</code> helpers) keeps the front-end maintainable.</li>
         </ul>
       </section>
-
-      <div style="margin-top:20px; display:flex; gap:12px; align-items:center;">
-        <a class="launch-big" href="https://pitchsequence.streamlit.app/" target="_blank" rel="noopener noreferrer">Launch (Live)</a>
-        <a class="btn ghost" href="https://github.com/christopherhsuu/pitchsequence/tree/main" target="_blank" rel="noopener noreferrer">Code</a>
-      </div>
-
-      <section style="margin-top:28px;">
-        <h2>Purpose</h2>
-        <p class="muted">PitchSequence recommends next-pitch candidates for a pitcher-vs-batter matchup by estimating expected run impact at the play level. It merges model-driven scores with batter-specific matchup aggregates to produce actionable candidate rankings.</p>
-
-        <h2>Quick start</h2>
-        <ol>
-          <li>Clone the repo, create a Python 3.13 virtualenv, and install dependencies.</li>
-          <li>Run preprocessing and feature engineering to create `data/processed/*.parquet` (see scripts).</li>
-          <li>Train or load a saved `artifacts/runvalue_model.pkl`, then open the Streamlit app to try the stepwise at-bat UI.</li>
-        </ol>
-
-        <h2>Data preparation (what I did)</h2>
-        <ol>
-          <li>Stored raw Statcast CSVs and name mapping files in <code>data/raw/</code>.</li>
-          <li>Ran <code>src/preprocess.py</code> to clean, standardize, and normalize pitch data.</li>
-          <li>Generated per-play features and batter-pitchtype aggregates with <code>src/feature_engineering.py</code>; saved outputs as Parquet files.</li>
-          <li>Applied exposure filters and winsorization for robust aggregate statistics.</li>
-        </ol>
-
-        <h2>Feature engineering (what I built)</h2>
-        <ol>
-          <li>Extracted plate_x/plate_z coordinates, last-pitch deltas, and assigned zone buckets.</li>
-          <li>Computed batter-pitchtype aggregates (wOBA, whiff rate, run value) from processed data.</li>
-          <li>Encoded categorical features and formatted inputs for the run-value modeling pipeline.</li>
-        </ol>
-
-        <h2>Modeling &amp; training</h2>
-        <ol>
-          <li>Loaded `data/processed/features.parquet` and `data/processed/runvalue.parquet`.</li>
-          <li>Built a scikit-learn pipeline for encoding, imputation, scaling, and the estimator (GradientBoosting or RandomForest).</li>
-          <li>Used time-aware train/validation/test splits to avoid leakage and tuned hyperparameters via grid/random search.</li>
-          <li>Saved the final pipeline to `artifacts/runvalue_model.pkl` for use in the app or server endpoints.</li>
-        </ol>
-
-        <h2>Deployment &amp; usage</h2>
-        <p class="muted">The Streamlit app loads the saved pipeline and scores candidate pitches for a given state. Predictions are converted into candidate probabilities by adding predicted run-value to the current run expectancy and applying a softmax over negative expected runs. The repo also includes a Vercel serverless endpoint that returns recommendations as JSON for programmatic use.</p>
-
-        <h2>Challenges &amp; next steps</h2>
-        <p class="muted">Name normalization, sparse batter-pitchtype exposures, and ensuring robust recommendations are primary challenges. The repo mitigates these with name-mapping, minimum exposure thresholds, and blending heuristics. Future work: richer batter features, ensemble stacking, periodic retraining, and a dashboard for evaluation of recommended sequences on holdout data.</p>
-      </section>
-    </div>
-    </main>
-
     <footer class="site-footer">
       <div class="container">
         <p class="muted">© 2025 Christopher Hsu</p>
