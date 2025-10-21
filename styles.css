@@ -29,12 +29,27 @@ body {
   padding-bottom: 92px;
 }
 
+.page-inner {
+  padding: 3rem;
+}
+
+@media (max-width: 900px) {
+  .page-inner {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-inner {
+    padding: 1rem;
+  }
+}
+
 main {
   background: #16161a;
   border-radius: 18px;
   box-shadow: 0 4px 32px 0 rgba(0,0,0,0.12);
   margin: 32px auto 0 auto;
-  padding: 32px 80px 0 80px;
   max-width: 1400px;
 }
 
