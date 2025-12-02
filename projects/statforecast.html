@@ -29,225 +29,118 @@
         <a class="launch-big" href="https://statforecast.streamlit.app" target="_blank" rel="noopener noreferrer">Launch (Live)</a>
         <a class="btn ghost" href="https://github.com/christopherhsuu/statforecast" target="_blank" rel="noopener noreferrer">Code</a>
       </div>
+      <h1>StatForecast</h1>
+      <p class="muted" style="font-size:1.1rem; margin:12px 0 32px 0;">Forecasting next-season hitting statistics using multi-year trajectories and ensemble machine learning models.</p>
+
       <section class="prose prose-lg text-gray-100 mt-6 space-y-4">
-        <h2 class="font-bold text-2xl mt-8 mb-2">Methodology &amp; Execution</h2>
-        <hr class="my-4 border-gray-700">
+        <h2 class="font-bold text-2xl mt-4 mb-3" style="color:#eebbc3;">Project Overview</h2>
 
-        <h3 class="font-bold text-xl mt-6 mb-2">Overview</h3>
-        <p style="line-height:1.25em;">
-          <strong>StatForecast</strong> is an interpretable machine-learning pipeline designed to forecast next-season offensive statistics for MLB hitters. The project demonstrates how <em>trajectory-aware features</em>—such as lagged season stats, rolling means, and year-over-year deltas—can improve predictive performance beyond naïve single-season models. Built with <strong>Python</strong>, <strong>pandas</strong>, and <strong>scikit-learn</strong>, it culminates in an interactive <strong>Streamlit</strong> app that allows users to explore player histories and generate live projections.
+        <p style="line-height:1.7; margin-bottom:20px;">
+          This project predicts next-season offensive statistics for MLB hitters by modeling player trajectories over time. Rather than using only current-season stats, the model incorporates multi-year trends, rolling averages, and year-over-year deltas to capture improvement or decline patterns.
+        </p>
+        <p style="line-height:1.7; margin-bottom:20px;">
+          The pipeline uses RandomForest regressors to forecast multiple statistics simultaneously (AVG, SLG, OBP, OPS, wRC+, HR, ISO, wOBA). An interactive Streamlit app lets users explore player histories and generate personalized projections.
         </p>
 
-        <h3 class="font-bold text-xl mt-6 mb-2">1. Data Preparation</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>
-            All data originated from a season-by-season hitter CSV (e.g., <code>fangraphs_hitters_2010_2024.csv</code>) formatted in the Fangraphs or Baseball-Reference style. Each row represented a single player-season, including identifiers (<strong>Name</strong>, <strong>Season</strong>) and standard stats (<strong>PA</strong>, <strong>HR</strong>, <strong>AVG</strong>, <strong>OBP</strong>, <strong>SLG</strong>, <strong>ISO</strong>, <strong>wOBA</strong>, <strong>BB%</strong>, <strong>K%</strong>).
-          </li>
-          <li>
-            Data ingestion and cleaning were handled by <code>prediction.py::load_data</code>, which:
-            <ol class="list-decimal ml-6 space-y-1">
-              <li>Loaded the CSV via <code>pandas.read_csv</code>.</li>
-              <li>Normalized inconsistent columns (<code>Player</code> → <code>Name</code>, <code>Year</code> → <code>Season</code>).</li>
-              <li>Converted percent strings (e.g., "12.3%") to float ratios for <strong>BB%</strong> and <strong>K%</strong>.</li>
-              <li>Filtered out players with fewer than 200 plate appearances to reduce variance.</li>
-              <li>Sorted and reindexed the DataFrame by <strong>Name</strong> and <strong>Season</strong>.</li>
-              <li>Validated all required columns, raising a clear <code>ValueError</code> if any were missing.</li>
-            </ol>
-          </li>
-          <li>
-            Missing lag features were dropped at training time, while rookies (with no prior seasons) had missing lag values imputed with zeros during prediction. Outlier clipping was intentionally minimal to preserve natural variance in the data.
-          </li>
-          <li>
-            To maintain reproducibility, datasets were excluded from version control (<code>.gitignore</code> includes <code>*.csv</code>), while trained models were either stored externally or downloaded dynamically via a <code>MODEL_URL</code>.
-          </li>
-        </ul>
-        <hr class="my-4 border-gray-700">
-
-        <h3 class="font-bold text-xl mt-6 mb-2">2. Feature Engineering</h3>
-        <p style="line-height:1.25em;">
-          Feature creation was the core of this project, executed in <code>prediction.py::build_features</code>.
-        </p>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>
-            <strong>Base predictors:</strong>
-            <code>['Age', 'PA', 'BB%', 'K%', 'HR', 'ISO', 'wOBA']</code>
-          </li>
-          <li>
-            <strong>Targets (multi-output):</strong>
-            <code>['AVG', 'SLG', 'OBP', 'OPS', 'wRC+', 'HR', 'ISO', 'wOBA']</code>
-          </li>
-          <li>
-            <strong>Key engineered feature groups:</strong>
-            <ul class="list-disc ml-6 space-y-1">
-              <li><strong>Lag Features:</strong> <code>lag1_</code>, <code>lag2_</code>, <code>lag3_</code> for each stat and for <strong>PA</strong> and <strong>Age</strong> to capture 1–3-year performance memory.</li>
-              <li><strong>Rolling Means:</strong> <code>roll3_&lt;stat&gt;</code> computed as a three-year rolling mean (shifted by one season to prevent data leakage).</li>
-              <li><strong>Delta Features:</strong> <code>delta1_</code> and <code>delta2_</code> track season-to-season directional changes.</li>
-              <li><strong>Averaged Deltas:</strong> <code>avg_delta_&lt;stat&gt;</code> smooths noisy variation.</li>
-              <li><strong>Career Momentum:</strong> <code>career_change3_&lt;stat&gt;</code> measures the difference between the current and three-seasons-ago performance.</li>
-              <li><strong>Age Interactions:</strong> <code>age_x_avg_delta_&lt;stat&gt;</code> integrates age-related improvement or decline rates.</li>
-            </ul>
-          </li>
-          <li>
-            These features model both <strong>persistence</strong> and <strong>trajectory</strong>, embedding sabermetric intuition: players don’t just perform—they trend. <em>A 24-year-old improving slugger, for instance, carries a very different predictive signal than a 36-year-old in decline.</em>
-          </li>
-        </ul>
-        <hr class="my-4 border-gray-700">
-
-        <h3 class="font-bold text-xl mt-6 mb-2">3. Model Training</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>
-            The model pipeline lives in <code>prediction.py::train_model</code>, which executes:
-            <ol class="list-decimal ml-6 space-y-1">
-              <li>Feature generation via <code>build_features(df, lags=3)</code>.</li>
-              <li>Assembly of predictor (<code>X</code>) and target (<code>Y</code>) matrices using <code>_assemble_matrix</code>, dropping rows missing necessary inputs or next-season targets.</li>
-              <li>Saving of <code>feature_columns</code> to ensure consistent reindexing at inference time.</li>
-              <li>Splitting data with <code>train_test_split(X, Y, test_size=0.15, random_state=42)</code>.</li>
-              <li>Fitting a <code>MultiOutputRegressor(RandomForestRegressor(n_estimators=200))</code>, chosen for its interpretability and robustness with heterogeneous baseball stats.</li>
-              <li>Computing <strong>RMSE</strong> (Root Mean Squared Error) across all targets using <code>NumPy</code>.</li>
-              <li>Saving the serialized payload—model + metadata—via <code>joblib.dump({'model': model, 'metadata': metadata}, save_path)</code>.</li>
-            </ol>
-          </li>
-          <li>
-            <strong>Saved metadata includes:</strong>
-            <ul class="list-disc ml-6 space-y-1">
-              <li>List of exact training-time <code>feature_columns</code></li>
-              <li>Test/train sample counts</li>
-              <li>Per-target RMSE values</li>
-            </ul>
-          </li>
-        </ul>
-        <hr class="my-4 border-gray-700">
-
-        <h3 class="font-bold text-xl mt-6 mb-2">4. Evaluation &amp; Diagnostics</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>
-            Performance was assessed primarily using <strong>RMSE</strong>, giving intuitive, unit-preserving error magnitudes (e.g., deviations in AVG points or home runs).
-          </li>
-          <li>
-            <strong>Recommended exploratory diagnostics included:</strong>
-            <ul class="list-disc ml-6 space-y-1">
-              <li>Residual plots per target (predicted vs. actual).</li>
-              <li>Error distributions and outlier review (e.g., rookies, injury returns).</li>
-              <li>Uncertainty heuristics by computing per-sample prediction variance across individual forest trees via <code>model.estimators_</code>.</li>
-            </ul>
-          </li>
-          <li>
-            Though the initial version used a single hold-out split, the framework is cross-validation-ready: hyperparameters (<code>n_estimators</code>, <code>max_depth</code>, <code>min_samples_leaf</code>) can be tuned through grid or randomized search optimizing multi-output RMSE.
-          </li>
-        </ul>
-        <hr class="my-4 border-gray-700">
-
-        <h3 class="font-bold text-xl mt-6 mb-2">5. Deployment</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>
-            Deployment was implemented in <code>streamlit_app.py</code>, providing an intuitive interface for analysts, fans, or researchers.
-          </li>
-          <li>
-            <strong>Runtime behavior:</strong>
-            <ul class="list-disc ml-6 space-y-1">
-              <li>
-                <strong>Model Loading:</strong>
-                Loads a local <code>models/rf_multioutput.joblib</code>, or downloads it dynamically if a <code>MODEL_URL</code> secret is configured (useful for Streamlit Cloud).
-              </li>
-              <li>
-                <strong>Data Upload &amp; Normalization:</strong>
-                User-uploaded CSVs are validated through <code>load_data</code>, ensuring consistency.
-              </li>
-              <li>
-                <strong>Interactive Player Search:</strong>
-                A searchable dropdown built from <code>df['Name'].dropna().unique()</code> allows player selection.
-              </li>
-              <li>
-                <strong>Prediction Execution:</strong>
-                <code>predict_player(player_name, df, model)</code> re-builds features, reindexes columns to match <code>feature_columns</code>, fills missing inputs with zeros, and outputs next-season forecasts.
-              </li>
-              <li>
-                <strong>Visualization:</strong>
-                Player history and projection plots are rendered inline with Streamlit’s plotting API.
-              </li>
-            </ul>
-          </li>
-          <li>
-            This design keeps deployment frictionless: model binaries stay external (via Git LFS or runtime download), and retraining can occur directly in the app.
-          </li>
-        </ul>
-        <hr class="my-4 border-gray-700">
-
-        <h3 class="font-bold text-xl mt-6 mb-2">6. File Architecture</h3>
-        <div class="overflow-x-auto">
-          <table class="min-w-full text-sm border border-gray-700">
-            <thead>
-              <tr class="bg-gray-800">
-                <th class="px-4 py-2 text-left font-semibold">File</th>
-                <th class="px-4 py-2 text-left font-semibold">Purpose</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="bg-gray-900">
-                <td class="px-4 py-2"><code>prediction.py</code></td>
-                <td class="px-4 py-2">Core data, feature, and modeling logic (<code>load_data</code>, <code>build_features</code>, <code>train_model</code>, etc.)</td>
-              </tr>
-              <tr class="bg-gray-800">
-                <td class="px-4 py-2"><code>streamlit_app.py</code></td>
-                <td class="px-4 py-2">Front-end app with upload, retrain, and visualization tools</td>
-              </tr>
-              <tr class="bg-gray-900">
-                <td class="px-4 py-2"><code>models/rf_multioutput.joblib</code></td>
-                <td class="px-4 py-2">Serialized model + metadata (excluded from repo, can be hosted remotely)</td>
-              </tr>
-              <tr class="bg-gray-800">
-                <td class="px-4 py-2"><code>requirements.txt</code></td>
-                <td class="px-4 py-2">Dependency list (Streamlit, scikit-learn, pandas, matplotlib, joblib, requests)</td>
-              </tr>
-              <tr class="bg-gray-900">
-                <td class="px-4 py-2"><code>prediction.ipynb</code></td>
-                <td class="px-4 py-2">Exploratory notebook for prototyping and visualization</td>
-              </tr>
-              <tr class="bg-gray-800">
-                <td class="px-4 py-2"><code>fangraphs_hitters_2010_2024.csv</code></td>
-                <td class="px-4 py-2">Example dataset (not included for size and licensing reasons)</td>
-              </tr>
-            </tbody>
-          </table>
+        <div style="background:rgba(255,255,255,0.03); padding:20px; border-radius:12px; margin:24px 0;">
+          <h3 style="margin:0 0 12px 0; color:#eebbc3; font-size:1.1rem;">Key Technologies</h3>
+          <p style="margin:0; line-height:1.7;"><strong>Python</strong> • Fangraphs/Baseball-Reference data • RandomForest • Multi-output regression • Streamlit • pandas • scikit-learn</p>
         </div>
-        <hr class="my-4 border-gray-700">
 
-        <h3 class="font-bold text-xl mt-6 mb-2">7. Future Work</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>
-            <strong>Short-term priorities:</strong>
-            <ul class="list-disc ml-6 space-y-1">
-              <li>Integrate cross-validation and hyperparameter tuning.</li>
-              <li>Add rookie and injury flags for improved edge-case handling.</li>
-              <li>Expand feature space to include Statcast metrics (Barrel%, Exit Velocity, Launch Angle).</li>
-            </ul>
-          </li>
-          <li>
-            <strong>Long-term roadmap:</strong>
-            <ul class="list-disc ml-6 space-y-1">
-              <li>Develop a player comparison dashboard with exportable reports.</li>
-              <li>Implement quantile regression forests or conformal prediction for uncertainty intervals.</li>
-              <li>Automate annual retraining as new MLB data becomes available.</li>
-            </ul>
-          </li>
-        </ul>
-        <hr class="my-4 border-gray-700">
+        <h2 class="font-bold text-2xl mt-12 mb-3" style="color:#eebbc3;">Development Process</h2>
 
-        <h3 class="font-bold text-xl mt-6 mb-2">8. Design Notes</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>Consistency is enforced throughout by saving the model’s <code>feature_columns</code>.</li>
-          <li>The Streamlit selectbox relies on exact string matches for player names; normalization ensures lookup stability.</li>
-          <li>Large binaries should never be committed directly—use Git LFS or external hosting to keep history clean and deployment lightweight.</li>
-        </ul>
+        <div class="process-step" style="margin:32px 0;">
+          <h3 class="font-bold text-xl mb-3" style="color:#fff;">Step 1: Data Collection & Cleaning</h3>
+          <p style="line-height:1.7; margin-bottom:16px;">
+            Season-by-season hitter statistics are collected from Fangraphs or Baseball-Reference. Each row represents one player-season with standard offensive metrics.
+          </p>
+          <div style="background:rgba(255,255,255,0.02); padding:16px; border-left:3px solid #eebbc3; margin:16px 0;">
+            <p style="margin:0 0 8px 0; font-weight:600;">Preprocessing steps:</p>
+            <ul style="margin:0; padding-left:20px; line-height:1.8;">
+              <li>Normalize column names and data formats</li>
+              <li>Convert percentage strings to numeric ratios</li>
+              <li>Filter players with fewer than 200 plate appearances</li>
+              <li>Sort by player name and season</li>
+              <li>Validate required columns are present</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="process-step" style="margin:32px 0;">
+          <h3 class="font-bold text-xl mb-3" style="color:#fff;">Step 2: Trajectory-Aware Feature Engineering</h3>
+          <p style="line-height:1.7; margin-bottom:16px;">
+            The key innovation is creating features that capture player trajectories over time, not just current performance. This helps the model distinguish between rising stars and declining veterans.
+          </p>
+          <div style="background:rgba(255,255,255,0.02); padding:16px; border-left:3px solid #eebbc3; margin:16px 0;">
+            <p style="margin:0 0 8px 0; font-weight:600;">Engineered feature types:</p>
+            <ul style="margin:0; padding-left:20px; line-height:1.8;">
+              <li><strong>Lag features:</strong> 1-3 year historical values for each statistic</li>
+              <li><strong>Rolling means:</strong> 3-year averages to smooth variance</li>
+              <li><strong>Delta features:</strong> year-over-year changes</li>
+              <li><strong>Career momentum:</strong> 3-year trend indicators</li>
+              <li><strong>Age interactions:</strong> age × performance deltas to model aging curves</li>
+            </ul>
+          </div>
+          <p style="line-height:1.7; margin-top:16px;">
+            These features embed sabermetric intuition: a 24-year-old improving slugger carries a different predictive signal than a 36-year-old in decline, even with similar current stats.
+          </p>
+        </div>
+
+        <div class="process-step" style="margin:32px 0;">
+          <h3 class="font-bold text-xl mb-3" style="color:#fff;">Step 3: Multi-Output Model Training</h3>
+          <p style="line-height:1.7; margin-bottom:16px;">
+            A RandomForest regressor predicts multiple offensive statistics simultaneously. This multi-output approach captures correlations between statistics (e.g., players with high OBP tend to have high OPS).
+          </p>
+          <div style="background:rgba(255,255,255,0.02); padding:16px; border-left:3px solid #eebbc3; margin:16px 0;">
+            <p style="margin:0 0 8px 0; font-weight:600;">Training process:</p>
+            <ol style="margin:0; padding-left:20px; line-height:1.8;">
+              <li>Generate all trajectory features for each player-season</li>
+              <li>Split into train/test sets (85/15)</li>
+              <li>Train MultiOutputRegressor with RandomForest (200 trees)</li>
+              <li>Evaluate using RMSE for each predicted statistic</li>
+              <li>Save model and feature metadata for deployment</li>
+            </ol>
+          </div>
+          <p style="line-height:1.7; margin-top:16px;">
+            The model predicts AVG, SLG, OBP, OPS, wRC+, HR, ISO, and wOBA simultaneously, learning the relationships between these metrics.
+          </p>
+        </div>
+
+        <div class="process-step" style="margin:32px 0;">
+          <h3 class="font-bold text-xl mb-3" style="color:#fff;">Step 4: Interactive Deployment</h3>
+          <p style="line-height:1.7; margin-bottom:16px;">
+            The trained model is deployed as a Streamlit app where users can search for players, view their historical performance, and generate next-season projections.
+          </p>
+          <div style="background:rgba(255,255,255,0.02); padding:16px; border-left:3px solid #eebbc3; margin:16px 0;">
+            <p style="margin:0 0 8px 0; font-weight:600;">App features:</p>
+            <ul style="margin:0; padding-left:20px; line-height:1.8;">
+              <li>Upload custom player datasets or use default data</li>
+              <li>Search for players via interactive dropdown</li>
+              <li>View multi-year performance history</li>
+              <li>Generate next-season forecasts for all tracked statistics</li>
+              <li>Visualize projections with historical context</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2 class="font-bold text-2xl mt-12 mb-3" style="color:#eebbc3;">Technical Highlights</h2>
+        <div style="background:rgba(255,255,255,0.02); padding:20px; border-radius:12px; margin:20px 0;">
+          <ul style="margin:0; padding-left:20px; line-height:1.8;">
+            <li>Multi-year trajectory features capture aging curves and performance trends</li>
+            <li>Multi-output regression learns correlations between different statistics</li>
+            <li>Feature metadata saved with model ensures consistency at inference time</li>
+            <li>Lag features and rolling means prevent data leakage while using historical context</li>
+            <li>Age interactions model the different predictive signals of young vs. veteran players</li>
+          </ul>
+        </div>
       </section>
-    </div>
     </div>
   </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="muted">© 2025 Christopher Hsu</p>
-      </div>
-    </footer>
+  <footer class="site-footer">
+    <div class="container">
+      <p class="muted">© 2025 Christopher Hsu</p>
+    </div>
+  </footer>
   </body>
 </html>

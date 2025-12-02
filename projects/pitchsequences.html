@@ -30,258 +30,122 @@
         <a class="btn ghost" href="https://github.com/christopherhsuu/pitchsequence/tree/main" target="_blank" rel="noopener noreferrer">Code</a>
       </div>
       <h1>Pitch Sequences</h1>
-      <p class="muted">An interactive visualization of pitch sequences, pitch types, and swing outcomes. The app helps explore sequencing patterns and batter responses by zone and count.</p>
+      <p class="muted" style="font-size:1.1rem; margin:12px 0 32px 0;">A machine learning system that recommends optimal pitch sequences based on run-value prediction and batter matchup data.</p>
+
       <section class="prose max-w-4xl text-gray-200 mt-8 space-y-6">
-        <h2 class="font-bold text-2xl mt-8 mb-2">Methodology &amp; Execution</h2>
-        <hr class="my-4 border-gray-700">
+        <h2 class="font-bold text-2xl mt-4 mb-3" style="color:#eebbc3;">Project Overview</h2>
 
-        <h3 class="font-bold text-xl mt-6 mb-2">Overview</h3>
-        <p style="line-height:1.25em;">
-          <strong>PitchSequence</strong> is a sabermetric machine-learning pipeline and interactive <strong>Streamlit</strong> app that recommends the next pitch a pitcher should throw in a given situation. It blends <strong>Statcast</strong> data, batter archetypes, pitcher arsenals, and a run-value prediction model to simulate how decisions impact expected runs.
+        <p style="line-height:1.7; margin-bottom:20px;">
+          This system predicts the run-value impact of each pitch choice and recommends sequences that minimize expected runs for the pitcher. It combines Statcast pitch tracking data, batter performance metrics, and situational context to make intelligent recommendations.
         </p>
-        <p style="line-height:1.25em;">
-          The system integrates data processing, feature engineering, model training, and UI design to create an explainable recommender that mirrors real-world pitch-calling logic.
+        <p style="line-height:1.7; margin-bottom:20px;">
+          The model considers count, base state, batter tendencies, and pitcher arsenal to generate ranked pitch recommendations. An interactive Streamlit interface simulates at-bats pitch-by-pitch, updating recommendations as the count evolves.
         </p>
 
-        <h3 class="font-bold text-xl mt-6 mb-2">1. Data Preparation</h3>
-        <h4 class="font-semibold text-lg mt-4 mb-2">Directories &amp; inputs</h4>
-        <table class="min-w-full text-sm border border-gray-700 mb-4">
-          <thead>
-            <tr class="bg-gray-800">
-              <th class="px-4 py-2 text-left font-semibold">Folder</th>
-              <th class="px-4 py-2 text-left font-semibold">Purpose</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="bg-gray-900">
-              <td class="px-4 py-2"><code>data/raw/</code></td>
-              <td class="px-4 py-2">Raw Statcast dumps (statcast_2025.csv, name mapping files)</td>
-            </tr>
-            <tr class="bg-gray-800">
-              <td class="px-4 py-2"><code>data/processed/</code></td>
-              <td class="px-4 py-2">Cleaned and feature-engineered Parquet files (cleaned.parquet, features.parquet, runvalue.parquet)</td>
-            </tr>
-            <tr class="bg-gray-900">
-              <td class="px-4 py-2"><code>pitcher_assets/pitcher_arsenals.csv</code></td>
-              <td class="px-4 py-2">Inferred pitcher arsenals derived from Statcast</td>
-            </tr>
-          </tbody>
-        </table>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>Data ingestion begins by placing raw CSVs in <code>data/raw/</code> and running <code>src/preprocess.py</code>, which:
-            <ul class="list-disc ml-6 space-y-1">
-              <li>Parses timestamps and cleans inconsistent or missing rows.</li>
-              <li>Normalizes pitch type labels (FF, SL, CH, etc.).</li>
-              <li>Ensures batter and pitcher names align across datasets.</li>
-              <li>Drops invalid rows lacking pitch type or outcome information.</li>
-            </ul>
-          </li>
-          <li>Next, <code>src/feature_engineering.py</code> computes play-level and aggregate features:
-            <ul class="list-disc ml-6 space-y-1">
-              <li>Maps categorical pitch locations (“Top-In”, “Low-Away”) to numeric plate coordinates (<code>plate_x</code>, <code>plate_z</code>).</li>
-              <li>Calculates <code>last_pitch_speed_delta</code> and contextual deltas.</li>
-              <li>Aggregates batter vs. pitch_type statistics such as:
-                <ul class="list-disc ml-6 space-y-1">
-                  <li><code>batter_pitchtype_woba</code></li>
-                  <li><code>batter_pitchtype_whiff_rate</code></li>
-                  <li><code>batter_pitchtype_run_value</code></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>Data cleaning &amp; filtering:
-            <ul class="list-disc ml-6 space-y-1">
-              <li>Missing numeric values are imputed with contextual defaults (e.g., 0 for missing rates).</li>
-              <li>Unrealistic outliers (e.g., release speeds &gt;105 mph) are winsorized.</li>
-              <li>Pitchers/batters with insufficient sample sizes are filtered out to stabilize estimates.</li>
-              <li>Only recent seasons (1–3 years) are used for modeling to avoid historical drift.</li>
-              <li>All processed outputs are saved to <code>data/processed/</code> for efficient re-use during model training.</li>
-            </ul>
-          </li>
-        </ul>
-        <hr class="my-4 border-gray-700">
+        <div style="background:rgba(255,255,255,0.03); padding:20px; border-radius:12px; margin:24px 0;">
+          <h3 style="margin:0 0 12px 0; color:#eebbc3; font-size:1.1rem;">Key Technologies</h3>
+          <p style="margin:0; line-height:1.7;"><strong>Python</strong> • Statcast API • RandomForest/GradientBoosting • Run expectancy modeling • Streamlit • pandas • scikit-learn</p>
+        </div>
 
-        <h3 class="font-bold text-xl mt-6 mb-2">2. Feature Engineering</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li><strong>Core features:</strong>
-            <ul class="list-disc ml-6 space-y-1">
-              <li>Count &amp; base state: <code>balls</code>, <code>strikes</code>, <code>outs_when_up</code>, <code>on_1b</code>, <code>on_2b</code>, <code>on_3b</code></li>
-              <li>Pitch data: <code>pitch_type</code>, <code>release_speed</code>, <code>release_spin_rate</code></li>
-              <li>Plate location: <code>plate_x</code>, <code>plate_z</code>, <code>zone</code></li>
-              <li>Temporal context: <code>last_pitch_type</code>, <code>last_pitch_result</code>, <code>last_pitch_speed_delta</code></li>
-              <li>Batter matchup metrics: <code>batter_pitchtype_woba</code>, <code>batter_pitchtype_whiff_rate</code>, <code>batter_pitchtype_run_value</code></li>
-            </ul>
-          </li>
-          <li><strong>Transformations:</strong>
-            <ul class="list-disc ml-6 space-y-1">
-              <li>Categorical features are one-hot or target-encoded in the model pipeline.</li>
-              <li>Numeric variables are scaled as needed.</li>
-              <li>Interaction terms such as <code>count × pitch_type</code> capture strategic context.</li>
-            </ul>
-          </li>
-          <li><strong>Rationale:</strong>
-            <p style="line-height:1.25em;">The feature space merges physical characteristics (pitch speed, location) with situational and matchup information, enabling the model to predict not just what is thrown, but what should be thrown to minimize run expectancy.</p>
-          </li>
-        </ul>
-        <hr class="my-4 border-gray-700">
+        <h2 class="font-bold text-2xl mt-12 mb-3" style="color:#eebbc3;">Development Process</h2>
 
-        <h3 class="font-bold text-xl mt-6 mb-2">3. Model Training</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>The training logic resides in <code>src/model_train.py</code>, producing a serialized artifact at <code>artifacts/runvalue_model.pkl</code>.</li>
-          <li><strong>Pipeline steps:</strong>
-            <ol class="list-decimal ml-6 space-y-1">
-              <li>Load preprocessed data from <code>data/processed/features.parquet</code> and run-value targets from <code>runvalue.parquet</code>.</li>
-              <li>Split data into train/validation/test sets using a time-based split to prevent data leakage.</li>
-              <li>Construct a scikit-learn pipeline for:
-                <ul class="list-disc ml-6 space-y-1">
-                  <li>Categorical encoding</li>
-                  <li>Missing-value imputation</li>
-                  <li>Scaling</li>
-                  <li>Regression model training</li>
-                </ul>
-              </li>
-              <li>Train candidate regressors such as:
-                <ul class="list-disc ml-6 space-y-1">
-                  <li><code>RandomForestRegressor</code></li>
-                  <li><code>GradientBoostingRegressor</code></li>
-                </ul>
-              </li>
-              <li>Optimize hyperparameters via grid or randomized search.</li>
-              <li>Evaluate with <code>MSE</code>, <code>MAE</code>, and explained variance, selecting the model with the lowest error on validation data.</li>
-              <li>Save the fitted model using <code>joblib.dump()</code> or <code>pickle</code> for deployment.</li>
+        <div class="process-step" style="margin:32px 0;">
+          <h3 class="font-bold text-xl mb-3" style="color:#fff;">Step 1: Data Collection & Preprocessing</h3>
+          <p style="line-height:1.7; margin-bottom:16px;">
+            Raw Statcast pitch-by-pitch data is extracted from Baseball Savant and cleaned to create consistent, model-ready datasets. Each pitch includes tracking data, situational context, and outcome information.
+          </p>
+          <div style="background:rgba(255,255,255,0.02); padding:16px; border-left:3px solid #eebbc3; margin:16px 0;">
+            <p style="margin:0 0 8px 0; font-weight:600;">Preprocessing steps:</p>
+            <ul style="margin:0; padding-left:20px; line-height:1.8;">
+              <li>Normalize pitch type labels (FF, SL, CH, CU, etc.)</li>
+              <li>Clean inconsistent or missing values</li>
+              <li>Map pitch locations to plate coordinates</li>
+              <li>Filter out low-sample players to reduce noise</li>
+              <li>Extract recent seasons only to avoid historical drift</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="process-step" style="margin:32px 0;">
+          <h3 class="font-bold text-xl mb-3" style="color:#fff;">Step 2: Feature Engineering</h3>
+          <p style="line-height:1.7; margin-bottom:16px;">
+            Features combine situational context, pitch characteristics, and batter matchup data. The goal is to capture everything that influences run expectancy after a pitch.
+          </p>
+          <div style="background:rgba(255,255,255,0.02); padding:16px; border-left:3px solid #eebbc3; margin:16px 0;">
+            <p style="margin:0 0 8px 0; font-weight:600;">Feature categories:</p>
+            <ul style="margin:0; padding-left:20px; line-height:1.8;">
+              <li><strong>Situational:</strong> count (balls/strikes), outs, base runners</li>
+              <li><strong>Pitch tracking:</strong> pitch type, velocity, spin rate, location</li>
+              <li><strong>Sequence context:</strong> last pitch type, result, speed delta</li>
+              <li><strong>Batter matchups:</strong> wOBA, whiff rate, and run value vs. each pitch type</li>
+            </ul>
+          </div>
+          <p style="line-height:1.7; margin-top:16px;">
+            Batter-specific aggregates capture how well each batter performs against different pitch types. This allows the model to recommend pitches that exploit weaknesses in the batter's approach.
+          </p>
+        </div>
+
+        <div class="process-step" style="margin:32px 0;">
+          <h3 class="font-bold text-xl mb-3" style="color:#fff;">Step 3: Run-Value Model Training</h3>
+          <p style="line-height:1.7; margin-bottom:16px;">
+            A regression model predicts the change in run expectancy for each pitch. The model learns from historical pitch outcomes to estimate how many runs a pitch is likely to add or prevent.
+          </p>
+          <div style="background:rgba(255,255,255,0.02); padding:16px; border-left:3px solid #eebbc3; margin:16px 0;">
+            <p style="margin:0 0 8px 0; font-weight:600;">Training pipeline:</p>
+            <ol style="margin:0; padding-left:20px; line-height:1.8;">
+              <li>Time-based train/validation/test split to prevent leakage</li>
+              <li>Encode categorical features and scale numeric inputs</li>
+              <li>Train RandomForest or GradientBoosting regressors</li>
+              <li>Optimize hyperparameters via grid search</li>
+              <li>Evaluate using MSE, MAE, and explained variance</li>
+              <li>Serialize final model for deployment</li>
             </ol>
-          </li>
-          <li><strong>Notes:</strong>
-            <ul class="list-disc ml-6 space-y-1">
-              <li>Version alignment for scikit-learn is crucial to avoid unpickling errors.</li>
-              <li>For long-term maintenance, pin dependencies in <code>requirements.txt</code>.</li>
-            </ul>
-          </li>
-        </ul>
-        <hr class="my-4 border-gray-700">
+          </div>
+          <p style="line-height:1.7; margin-top:16px;">
+            The trained model outputs a run-value prediction for each candidate pitch. Lower predictions indicate pitches that are more likely to benefit the pitcher.
+          </p>
+        </div>
 
-        <h3 class="font-bold text-xl mt-6 mb-2">4. Evaluation</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>Evaluation focuses on both numerical accuracy and strategic validity:</li>
-          <li><strong>Metrics:</strong>
-            <ul class="list-disc ml-6 space-y-1">
-              <li>Mean Squared Error (<code>MSE</code>)</li>
-              <li>Mean Absolute Error (<code>MAE</code>)</li>
-              <li>Explained Variance</li>
-            </ul>
-          </li>
-          <li><strong>Decision-support quality:</strong>
-            <ul class="list-disc ml-6 space-y-1">
-              <li>Tests whether the model’s ranked pitch recommendations correlate with lower realized run values.</li>
-            </ul>
-          </li>
-          <li><strong>Diagnostics:</strong>
-            <ul class="list-disc ml-6 space-y-1">
-              <li>Residual plots</li>
-              <li>Feature importance charts</li>
-              <li>Partial dependence plots</li>
-            </ul>
-          </li>
-          <li>A time-aware cross-validation (sliding-window approach) ensures robustness against season-to-season variation.</li>
-        </ul>
-        <hr class="my-4 border-gray-700">
+        <div class="process-step" style="margin:32px 0;">
+          <h3 class="font-bold text-xl mb-3" style="color:#fff;">Step 4: Interactive Deployment</h3>
+          <p style="line-height:1.7; margin-bottom:16px;">
+            The trained model is deployed in a Streamlit app that simulates at-bats pitch by pitch. Users select a pitcher and batter, then step through each pitch decision.
+          </p>
+          <div style="background:rgba(255,255,255,0.02); padding:16px; border-left:3px solid #eebbc3; margin:16px 0;">
+            <p style="margin:0 0 8px 0; font-weight:600;">How the app works:</p>
+            <ol style="margin:0; padding-left:20px; line-height:1.8;">
+              <li>Load trained run-value model</li>
+              <li>Input pitcher and batter names</li>
+              <li>For each count and base state, generate candidate pitches</li>
+              <li>Predict run-value for each candidate pitch</li>
+              <li>Rank pitches by lowest expected run value</li>
+              <li>Display recommendations with probabilities and strike zone visualization</li>
+              <li>Update count/base state after each pitch and recompute</li>
+            </ol>
+          </div>
+          <p style="line-height:1.7; margin-top:16px;">
+            This creates a realistic pitch sequencing simulation where recommendations adapt as the at-bat evolves.
+          </p>
+        </div>
 
-        <h3 class="font-bold text-xl mt-6 mb-2">5. Deployment &amp; UI</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>Deployment centers on <code>app.py</code>, a Streamlit interface that orchestrates the at-bat simulation.</li>
-        </ul>
-        <h4 class="font-semibold text-lg mt-4 mb-2">Runtime flow</h4>
-        <ol class="list-decimal ml-6 space-y-1">
-          <li>Load the trained model (<code>artifacts/runvalue_model.pkl</code>).</li>
-          <li>Initialize batter and pitcher data via name inputs only — no IDs required.</li>
-          <li>For a given count and base-state, compute candidate pitches and convert run-value predictions into softmax probabilities, favoring pitches that minimize expected runs:</li>
-        </ol>
-        <pre class="bg-gray-900 text-gray-100 p-4 rounded mb-4"><code>expected_after_RE = current_RE + predicted_run_value</code></pre>
-        <ol class="list-decimal ml-6 space-y-1" start="4">
-          <li>Display ranked pitch recommendations with associated probabilities and strike-zone visuals.</li>
-          <li>Record pitch outcome → update count and base-state → recompute recommendations.</li>
-        </ol>
-        <p style="line-height:1.25em;">This stepwise loop allows users to walk through a realistic at-bat.</p>
-        <h4 class="font-semibold text-lg mt-4 mb-2">Deployment Notes</h4>
-        <ul class="list-disc ml-6 space-y-1">
-          <li>On Streamlit Cloud, set the main module to <code>app/app.py</code> (wrapper imports root <code>app.py</code>).</li>
-          <li>Large artifacts should be hosted externally or with Git LFS.</li>
-          <li>To eliminate <code>InconsistentVersionWarning</code>, re-export models with the target environment’s library versions.</li>
-        </ul>
-        <hr class="my-4 border-gray-700">
-
-        <h3 class="font-bold text-xl mt-6 mb-2">7. File Map</h3>
-        <table class="min-w-full text-sm border border-gray-700 mb-4">
-          <thead>
-            <tr class="bg-gray-800">
-              <th class="px-4 py-2 text-left font-semibold">File</th>
-              <th class="px-4 py-2 text-left font-semibold">Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="bg-gray-900">
-              <td class="px-4 py-2"><code>app.py</code></td>
-              <td class="px-4 py-2">Main Streamlit UI managing at-bat flow and model integration</td>
-            </tr>
-            <tr class="bg-gray-800">
-              <td class="px-4 py-2"><code>app/app.py</code></td>
-              <td class="px-4 py-2">Hosting wrapper (imports root app)</td>
-            </tr>
-            <tr class="bg-gray-900">
-              <td class="px-4 py-2"><code>src/preprocess.py</code></td>
-              <td class="px-4 py-2">Cleans and normalizes raw Statcast data</td>
-            </tr>
-            <tr class="bg-gray-800">
-              <td class="px-4 py-2"><code>src/feature_engineering.py</code></td>
-              <td class="px-4 py-2">Generates per-play features and batter aggregates</td>
-            </tr>
-            <tr class="bg-gray-900">
-              <td class="px-4 py-2"><code>src/model_train.py</code></td>
-              <td class="px-4 py-2">Model training and artifact creation</td>
-            </tr>
-            <tr class="bg-gray-800">
-              <td class="px-4 py-2"><code>src/predict.py</code></td>
-              <td class="px-4 py-2">Loads model and produces run-value predictions</td>
-            </tr>
-            <tr class="bg-gray-900">
-              <td class="px-4 py-2"><code>src/attack_recommender.py</code></td>
-              <td class="px-4 py-2">Heuristic fallback and matchup helpers</td>
-            </tr>
-            <tr class="bg-gray-800">
-              <td class="px-4 py-2"><code>src/build_pitcher_arsenals.py</code></td>
-              <td class="px-4 py-2">Infers arsenals and writes pitcher_arsenals.csv</td>
-            </tr>
-            <tr class="bg-gray-900">
-              <td class="px-4 py-2"><code>data/raw/</code></td>
-              <td class="px-4 py-2">Raw Statcast CSVs and mapping files</td>
-            </tr>
-            <tr class="bg-gray-800">
-              <td class="px-4 py-2"><code>data/processed/</code></td>
-              <td class="px-4 py-2">Parquet outputs for model input</td>
-            </tr>
-            <tr class="bg-gray-900">
-              <td class="px-4 py-2"><code>artifacts/runvalue_model.pkl</code></td>
-              <td class="px-4 py-2">Trained pipeline used in production</td>
-            </tr>
-          </tbody>
-        </table>
-        <hr class="my-4 border-gray-700">
-
-        <h3 class="font-bold text-xl mt-6 mb-2">8. Future Enhancements</h3>
-        <ul class="list-disc ml-6 space-y-2">
-          <li>Integrate additional batter-level Statcast metrics (chase rate, contact rate).</li>
-          <li>Implement stacked or ensemble models for improved predictive performance.</li>
-          <li>Add sequence-level visualization dashboards for post-at-bat analysis.</li>
-          <li>Enable authenticated sessions to log and replay saved at-bats.</li>
-          <li>Support online retraining to reflect in-season player trends.</li>
-        </ul>
+        <h2 class="font-bold text-2xl mt-12 mb-3" style="color:#eebbc3;">Technical Highlights</h2>
+        <div style="background:rgba(255,255,255,0.02); padding:20px; border-radius:12px; margin:20px 0;">
+          <ul style="margin:0; padding-left:20px; line-height:1.8;">
+            <li>Time-based train/validation split prevents data leakage from future information</li>
+            <li>Batter-specific matchup statistics personalize recommendations</li>
+            <li>Run expectancy framework provides interpretable, strategically-grounded predictions</li>
+            <li>Softmax conversion of run-values creates intuitive probability rankings</li>
+            <li>Modular pipeline supports easy retraining and model updates</li>
+          </ul>
+        </div>
       </section>
-      <section class="prose max-w-4xl text-gray-200 mt-8 space-y-6">
-      </section>
-    <footer class="site-footer">
-      <div class="container">
-        <p class="muted">© 2025 Christopher Hsu</p>
-      </div>
-    </footer>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="muted">© 2025 Christopher Hsu</p>
+    </div>
+  </footer>
   </body>
 </html>
